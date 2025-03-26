@@ -33,7 +33,7 @@ def music_player(file_path):
 
 # Example usage
 if __name__ == "__main__":
-    music_file = "C:\\Users\\befor\\Downloads\\Estelle Feat. Kanye West - American Boy.mp3"
+    music_file = "Change_this_text_to_the_file_path_to_the_song"
     
     if os.path.exists(music_file):
         music_player(music_file)
