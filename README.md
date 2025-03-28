@@ -14,3 +14,10 @@ To run the code, follow these steps:
 2. Clone the repository or download the project files.
 3. Navigate to the project directory.
 4. Run the `main.py` file to start the Music Player
+
+
+# UML diagrams
+
+### Use Case Diagram
+![изображение](https://github.com/user-attachments/assets/eb5f7350-a780-4c31-b32a-c2681220184d)
+
