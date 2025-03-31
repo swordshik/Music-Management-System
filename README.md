@@ -19,7 +19,11 @@ To run the code, follow these steps:
 # UML diagrams
 
 ### Use Case Diagram
+
 ![изображение](https://github.com/user-attachments/assets/eb5f7350-a780-4c31-b32a-c2681220184d)
 
+
 ### Activity Diagram
-![изображение](https://github.com/user-attachments/assets/18a60681-8d70-4e0b-a06e-0ff413b5cdfc)
+
+![изображение](https://github.com/user-attachments/assets/43d165f4-ebba-4d71-9166-9a41da852e77)
+
