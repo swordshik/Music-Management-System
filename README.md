@@ -5,8 +5,19 @@
 This is the Python Coursework Project for our OOP corse in University Ala-Too. It's Music Management System with future implementations such as player, etc. 
 
 ## Project Requirements List
-1. Add user
-2. 
+1. Login as admin
+2. Login as user
+3. Add user
+4. View list of all songs
+5. Create a random playlist
+6. Change order of a playlist (rerandomise it)
+7. Add song
+8. Delete song
+9. Restore last song by it's Title
+10. Update song information
+11. Create a playlist by artist
+12. Create a playlist by genre
+13. Create a playlist by year
 
 ## There will be explanations for each file in our repository
 
