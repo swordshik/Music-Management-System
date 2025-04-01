@@ -1,8 +1,12 @@
 # Music-Management-System
 
-## Overview
+## Description
 
 This is the Python Coursework Project for our OOP corse in University Ala-Too. It's Music Management System with future implementations such as player, etc. 
+
+## Project Requirements List
+1. Add user
+2. 
 
 ## There will be explanations for each file in our repository
 
