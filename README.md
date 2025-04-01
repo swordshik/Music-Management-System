@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the Python Coursework Project for our OOP corse in University Ala-Too. It's player for music, getting the inspiration from all the players out there (mostly android players). 
+This is the Python Coursework Project for our OOP corse in University Ala-Too. It's Music Management System with future implementations such as player, etc. 
 
 ## There will be explanations for each file in our repository
 
@@ -10,7 +10,7 @@ This is the Python Coursework Project for our OOP corse in University Ala-Too. I
 
 To run the code, follow these steps:
 
-1. Ensure you have Python and SQLite are installed on your machine.
+1. Ensure you have Python and SQLite are installed on your device.
 2. Clone the repository or download the project files.
 3. Navigate to the project directory.
 4. Run the `main.py` file to start the Music Player
