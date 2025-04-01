@@ -19,7 +19,12 @@ This is the Python Coursework Project for our OOP corse in University Ala-Too. I
 12. Create a playlist by genre
 13. Create a playlist by year
 
-## There will be explanations for each file in our repository
+## Team members:
+
+1. Aizhan Tilekova - She handles our Databases
+2. Bakytbek uulu Nurali - He provided us GUI part of the project
+3. Muratbekov Sultanbek (podorozhnik) - Managing Controller part
+
 
 ## Running the Code
 
@@ -31,11 +36,10 @@ To run the code, follow these steps:
 4. Run the `main.py` file to start the Music Player
 
 
-# UML diagrams
+# Screenshots
 
-### Use Case Diagram
+# UML Class diagram
 
-![изображение](https://github.com/user-attachments/assets/eb5f7350-a780-4c31-b32a-c2681220184d)
 
 
 ### Activity Diagram
