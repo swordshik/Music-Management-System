@@ -1,26 +1,45 @@
 # Music-Management-System
 
-## Overview
+## Description
 
-This is the Python Coursework Project for our OOP corse in University Ala-Too. It's player for music, getting the inspiration from all the players out there (mostly android players). 
+This is the Python Coursework Project for our OOP corse in University Ala-Too. It's Music Management System with future implementations such as player, etc. 
 
-## There will be explanations for each file in our repository
+## Project Requirements List
+1. Login as admin
+2. Login as user
+3. Add user
+4. View list of all songs
+5. Create a random playlist
+6. Change order of a playlist (rerandomise it)
+7. Add song
+8. Delete song
+9. Restore last song by it's Title
+10. Update song information
+11. Create a playlist by artist
+12. Create a playlist by genre
+13. Create a playlist by year
+
+## Team members:
+
+1. Aizhan Tilekova - She handles our Databases
+2. Bakytbek uulu Nurali - He provided us GUI part of the project
+3. Muratbekov Sultanbek (podorozhnik) - Managing Controller part
+
 
 ## Running the Code
 
 To run the code, follow these steps:
 
-1. Ensure you have Python and SQLite are installed on your machine.
+1. Ensure you have Python and SQLite are installed on your device.
 2. Clone the repository or download the project files.
 3. Navigate to the project directory.
 4. Run the `main.py` file to start the Music Player
 
 
-# UML diagrams
+# Screenshots
 
-### Use Case Diagram
+# UML Class diagram
 
-![изображение](https://github.com/user-attachments/assets/eb5f7350-a780-4c31-b32a-c2681220184d)
 
 
 ### Activity Diagram
