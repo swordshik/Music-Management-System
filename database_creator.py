@@ -6,7 +6,7 @@ class Database:
         cursor = conn.cursor()
 
         cursor.execute('''
-        CREATE TABLE songs (
+        CREATE TABLE IF NOT EXISTS songs (
 	    song_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    Artist TEXT,
 	    Album TEXT,
@@ -18,7 +18,7 @@ class Database:
 
 
         cursor.execute('''
-        CREATE TABLE trash (
+        CREATE TABLE IF NOT EXISTS trash (
 	    song_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    Artist TEXT,
 	    Album TEXT,
@@ -29,7 +29,7 @@ class Database:
         ''')
 
         cursor.execute('''
-        CREATE TABLE admins (
+        CREATE TABLE IF NOT EXISTS admins (
 	    admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    username TEXT NOT NULL,
         email TEXT NOT NULL,
@@ -38,13 +38,20 @@ class Database:
         ''')
 
         cursor.execute('''
-        CREATE TABLE user (
+        CREATE TABLE IF NOT EXISTS user (
 	    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    username TEXT NOT NULL,
         password TEXT NOT NULL
         );
         ''')
 
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS playlist (
+        playlist_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        songs TEXT NOT NULL
+        );
+        ''')
+        
         conn.commit()
         conn.close()
 
