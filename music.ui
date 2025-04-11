@@ -131,7 +131,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="log_page">
      <attribute name="title">
@@ -278,7 +278,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="name_in">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -288,7 +288,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="surname_in">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -298,7 +298,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_3">
+     <widget class="QLineEdit" name="email_in">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -308,7 +308,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="bg2_3">
+     <widget class="QLabel" name="bg_log">
       <property name="geometry">
        <rect>
         <x>-30</x>
@@ -328,7 +328,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <pixmap resource="wall/bg.qrc">:/newPrefix/9a707a7e883d3dd10376a3e1bf2ed4e8.jpg</pixmap>
       </property>
      </widget>
-     <widget class="QPushButton" name="enterB">
+     <widget class="QPushButton" name="logB">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -348,23 +348,23 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <string>Enter</string>
       </property>
      </widget>
-     <zorder>bg2_3</zorder>
+     <zorder>bg_log</zorder>
      <zorder>label</zorder>
      <zorder>label_2</zorder>
      <zorder>label_15</zorder>
      <zorder>label_16</zorder>
      <zorder>comboBox</zorder>
      <zorder>label_18</zorder>
-     <zorder>lineEdit</zorder>
-     <zorder>lineEdit_2</zorder>
-     <zorder>lineEdit_3</zorder>
-     <zorder>enterB</zorder>
+     <zorder>name_in</zorder>
+     <zorder>surname_in</zorder>
+     <zorder>email_in</zorder>
+     <zorder>logB</zorder>
     </widget>
     <widget class="QWidget" name="view_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget_1">
+     <widget class="QTableWidget" name="list_table">
       <property name="geometry">
        <rect>
         <x>80</x>
@@ -462,13 +462,13 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
       </property>
      </widget>
      <zorder>bg2</zorder>
-     <zorder>tableWidget_1</zorder>
+     <zorder>list_table</zorder>
     </widget>
     <widget class="QWidget" name="add_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLineEdit" name="input_2">
+     <widget class="QLineEdit" name="album_in">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -483,7 +483,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </font>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_4">
+     <widget class="QLineEdit" name="year_in">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -544,7 +544,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </property>
       </item>
      </widget>
-     <widget class="QLineEdit" name="input_1">
+     <widget class="QLineEdit" name="artist_in">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -559,7 +559,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </font>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_3">
+     <widget class="QLineEdit" name="song_in">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -814,7 +814,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_17">
+     <widget class="QLabel" name="bg_add">
       <property name="geometry">
        <rect>
         <x>-10</x>
@@ -843,12 +843,12 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <pixmap resource="wall/bg.qrc">:/newPrefix/19eee91f32a591a52ce1b92e1fa092f9.jpg</pixmap>
       </property>
      </widget>
-     <zorder>label_17</zorder>
-     <zorder>input_2</zorder>
-     <zorder>input_4</zorder>
+     <zorder>bg_add</zorder>
+     <zorder>album_in</zorder>
+     <zorder>year_in</zorder>
      <zorder>comboBox_2</zorder>
-     <zorder>input_1</zorder>
-     <zorder>input_3</zorder>
+     <zorder>artist_in</zorder>
+     <zorder>song_in</zorder>
      <zorder>lyrics_1</zorder>
      <zorder>saveB_1</zorder>
      <zorder>label_4</zorder>
@@ -935,7 +935,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <string>Delete</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_19">
+     <widget class="QLabel" name="bg_edit">
       <property name="geometry">
        <rect>
         <x>-20</x>
@@ -983,7 +983,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_15">
+     <widget class="QLineEdit" name="year_edit">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -1108,7 +1108,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </property>
       </item>
      </widget>
-     <widget class="QLineEdit" name="input_17">
+     <widget class="QLineEdit" name="song_edit">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -1187,7 +1187,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_18">
+     <widget class="QLineEdit" name="artist_edit">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -1202,7 +1202,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </font>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_16">
+     <widget class="QLineEdit" name="album_edit">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -1307,7 +1307,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_19">
+     <widget class="QLineEdit" name="song_search">
       <property name="geometry">
        <rect>
         <x>360</x>
@@ -1322,30 +1322,30 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </font>
       </property>
      </widget>
-     <zorder>label_19</zorder>
+     <zorder>bg_edit</zorder>
      <zorder>lyrics_2</zorder>
      <zorder>searchB</zorder>
      <zorder>deleteB</zorder>
      <zorder>artist_3</zorder>
-     <zorder>input_15</zorder>
+     <zorder>year_edit</zorder>
      <zorder>label_47</zorder>
      <zorder>label_45</zorder>
      <zorder>comboBox_12</zorder>
-     <zorder>input_17</zorder>
+     <zorder>song_edit</zorder>
      <zorder>label_46</zorder>
      <zorder>label_48</zorder>
-     <zorder>input_18</zorder>
-     <zorder>input_16</zorder>
+     <zorder>artist_edit</zorder>
+     <zorder>album_edit</zorder>
      <zorder>label_43</zorder>
      <zorder>saveB_3</zorder>
      <zorder>label_49</zorder>
-     <zorder>input_19</zorder>
+     <zorder>song_search</zorder>
     </widget>
     <widget class="QWidget" name="playlist_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget_2">
+     <widget class="QTableWidget" name="song_table">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -1402,7 +1402,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="gen">
+     <widget class="QPushButton" name="genB">
       <property name="geometry">
        <rect>
         <x>460</x>
@@ -1512,7 +1512,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
       <property name="geometry">
        <rect>
         <x>-10</x>
-        <y>-30</y>
+        <y>-50</y>
         <width>831</width>
         <height>781</height>
        </rect>
@@ -1531,8 +1531,8 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
       </property>
      </widget>
      <zorder>label_51</zorder>
-     <zorder>tableWidget_2</zorder>
-     <zorder>gen</zorder>
+     <zorder>song_table</zorder>
+     <zorder>genB</zorder>
      <zorder>comboBox_4</zorder>
      <zorder>comboBox_5</zorder>
      <zorder>comboBox_6</zorder>
@@ -1542,7 +1542,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="label_21">
+     <widget class="QLabel" name="user_label">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -1559,10 +1559,10 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
     }</string>
       </property>
       <property name="text">
-       <string>Welcome UserName</string>
+       <string>Welcome UserName !</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_22">
+     <widget class="QLabel" name="status_label">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -1579,10 +1579,10 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
     }</string>
       </property>
       <property name="text">
-       <string>Status:</string>
+       <string>Status: ...</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_24">
+     <widget class="QLabel" name="profile_label1">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -1599,7 +1599,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
     }</string>
       </property>
       <property name="text">
-       <string>Number of Songs / Users</string>
+       <string>No. Songs / Users: ...</string>
       </property>
      </widget>
      <widget class="QTableWidget" name="tableWidget_3">
@@ -1612,7 +1612,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_25">
+     <widget class="QLabel" name="profile_label2">
       <property name="geometry">
        <rect>
         <x>510</x>
@@ -1692,7 +1692,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <string>Delete Account</string>
       </property>
      </widget>
-     <widget class="QLabel" name="edit_photoB">
+     <widget class="QLabel" name="edit_photo">
       <property name="geometry">
        <rect>
         <x>390</x>
@@ -1715,7 +1715,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="edit_photo">
+     <widget class="QPushButton" name="edit_photoB">
       <property name="geometry">
        <rect>
         <x>510</x>
@@ -1735,7 +1735,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <string>Edit Photo</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_52">
+     <widget class="QLabel" name="bg_profile">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1751,17 +1751,17 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <pixmap resource="wall/bg.qrc">:/newPrefix/889d0311af25dd85e87efb8f968b1d90.jpg</pixmap>
       </property>
      </widget>
-     <zorder>label_52</zorder>
-     <zorder>label_21</zorder>
-     <zorder>label_22</zorder>
-     <zorder>label_24</zorder>
+     <zorder>bg_profile</zorder>
+     <zorder>user_label</zorder>
+     <zorder>status_label</zorder>
+     <zorder>profile_label1</zorder>
      <zorder>tableWidget_3</zorder>
-     <zorder>label_25</zorder>
+     <zorder>profile_label2</zorder>
      <zorder>removeB</zorder>
      <zorder>lotoutB</zorder>
      <zorder>delete_acB</zorder>
-     <zorder>edit_photoB</zorder>
      <zorder>edit_photo</zorder>
+     <zorder>edit_photoB</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="signB">
