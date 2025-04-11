@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>735</width>
-    <height>559</height>
+    <height>565</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>735</width>
-    <height>559</height>
+    <height>565</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>735</width>
-    <height>559</height>
+    <height>565</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -73,7 +73,9 @@
     </property>
     <property name="styleSheet">
      <string notr="true">    QPushButton {
-	background-color: rgb(255, 255, 255);
+background-color: #F0F4EF ;
+color: #3D2C29;
+
         border-radius: 10px;
         padding: 5px;
     }</string>
@@ -122,7 +124,7 @@
       <x>20</x>
       <y>70</y>
       <width>691</width>
-      <height>451</height>
+      <height>430</height>
      </rect>
     </property>
     <property name="font">
@@ -130,8 +132,14 @@
       <pointsize>12</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">    QTabWidget {
+        border-radius: 10px;
+        padding: 5px;
+    }</string>
+    </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="log_page">
      <attribute name="title">
@@ -160,7 +168,7 @@
     }</string>
       </property>
       <property name="text">
-       <string>Sign in / Sign up</string>
+       <string>Log in / Sign up</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -189,34 +197,11 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_15">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>190</y>
-        <width>81</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">    QLabel {
-	background-color: rgb(255, 255, 255);
-        border-radius: 10px;
-        padding: 5px;
-    }</string>
-      </property>
-      <property name="text">
-       <string>Surname:</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_16">
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>230</y>
+        <y>190</y>
         <width>81</width>
         <height>31</height>
        </rect>
@@ -235,31 +220,11 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>270</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>User</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Admin</string>
-       </property>
-      </item>
-     </widget>
      <widget class="QLabel" name="label_18">
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>270</y>
+        <y>230</y>
         <width>81</width>
         <height>31</height>
        </rect>
@@ -272,7 +237,7 @@
     }</string>
       </property>
       <property name="text">
-       <string>Status:</string>
+       <string>Password:</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -288,7 +253,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="surname_in">
+     <widget class="QLineEdit" name="email_in">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -298,41 +263,30 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="email_in">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>230</y>
-        <width>171</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="bg_log">
       <property name="geometry">
        <rect>
-        <x>-30</x>
-        <y>-310</y>
+        <x>-20</x>
+        <y>-290</y>
         <width>751</width>
-        <height>761</height>
+        <height>751</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);
-image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
+       <string notr="true">/* Background: Light Mint, Text: Deep Charcoal */
+background-color: #6C757D ;
+color: #2C3E50;
+</string>
       </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="wall/bg.qrc">:/newPrefix/9a707a7e883d3dd10376a3e1bf2ed4e8.jpg</pixmap>
       </property>
      </widget>
      <widget class="QPushButton" name="logB">
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>310</y>
+        <y>270</y>
         <width>91</width>
         <height>31</height>
        </rect>
@@ -348,17 +302,25 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <string>Enter</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="password_in">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>230</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
      <zorder>bg_log</zorder>
      <zorder>label</zorder>
      <zorder>label_2</zorder>
-     <zorder>label_15</zorder>
      <zorder>label_16</zorder>
-     <zorder>comboBox</zorder>
      <zorder>label_18</zorder>
      <zorder>name_in</zorder>
-     <zorder>surname_in</zorder>
      <zorder>email_in</zorder>
      <zorder>logB</zorder>
+     <zorder>password_in</zorder>
     </widget>
     <widget class="QWidget" name="view_page">
      <attribute name="title">
@@ -451,8 +413,10 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);
-image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
+       <string notr="true">
+background-color: #6C757D ;
+color: #2C3E50;
+</string>
       </property>
       <property name="text">
        <string/>
@@ -830,11 +794,8 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">    QLabel {
-	background-color: rgb(255, 255, 255);
-        border-radius: 10px;
-        padding: 5px;
-    }</string>
+       <string notr="true">background-color: #6C757D ;
+color: #2C3E50;</string>
       </property>
       <property name="text">
        <string/>
@@ -943,6 +904,10 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
         <width>811</width>
         <height>691</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #6C757D ;
+color: #2C3E50;</string>
       </property>
       <property name="text">
        <string/>
@@ -1508,7 +1473,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <string>Filter:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_51">
+     <widget class="QLabel" name="bg_play">
       <property name="geometry">
        <rect>
         <x>-10</x>
@@ -1523,6 +1488,10 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
         <bold>true</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #6C757D ;
+color: #2C3E50;</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -1530,7 +1499,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <pixmap resource="wall/bg.qrc">:/newPrefix/19eee91f32a591a52ce1b92e1fa092f9.jpg</pixmap>
       </property>
      </widget>
-     <zorder>label_51</zorder>
+     <zorder>bg_play</zorder>
      <zorder>song_table</zorder>
      <zorder>genB</zorder>
      <zorder>comboBox_4</zorder>
@@ -1738,11 +1707,15 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <widget class="QLabel" name="bg_profile">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>-10</y>
+        <x>-10</x>
+        <y>-20</y>
         <width>811</width>
         <height>691</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #6C757D ;
+color: #2C3E50;</string>
       </property>
       <property name="text">
        <string/>
@@ -1767,7 +1740,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
    <widget class="QPushButton" name="signB">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>640</x>
       <y>20</y>
       <width>71</width>
       <height>31</height>
@@ -1852,7 +1825,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
       <normaloff>../../../Downloads/icons8-account-50.png</normaloff>../../../Downloads/icons8-account-50.png</iconset>
     </property>
    </widget>
-   <widget class="QLabel" name="label_13">
+   <widget class="QLabel" name="bg_win2">
     <property name="geometry">
      <rect>
       <x>-62</x>
@@ -1862,31 +1835,35 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(36, 149, 149);</string>
+     <string notr="true">background-color: #178582  ;
+color: #3D2C29;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_44">
+   <widget class="QLabel" name="bg_win1">
     <property name="geometry">
      <rect>
-      <x>-140</x>
-      <y>10</y>
+      <x>-130</x>
+      <y>40</y>
       <width>901</width>
       <height>861</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
-     <string notr="true">
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: #0A1828;
+color: #3D2C29;</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <zorder>label_44</zorder>
-   <zorder>label_13</zorder>
+   <zorder>bg_win1</zorder>
+   <zorder>bg_win2</zorder>
    <zorder>addB</zorder>
    <zorder>viewB</zorder>
    <zorder>editB</zorder>
