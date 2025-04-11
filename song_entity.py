@@ -1,4 +1,4 @@
-class SongEntity:
+class Song:
     
     def __init__(self, artist, album, title, genre, release_year):
         self.artist = artist

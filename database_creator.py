@@ -17,17 +17,6 @@ class Database:
         ''')
 
         cursor.execute('''
-        CREATE TABLE IF NOT EXISTS trash (
-	    song_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	    Artist TEXT,
-	    Album TEXT,
-	    Title TEXT NOT NULL,
-	    Year INTEGER,
-	    Genre TEXT
-        );
-        ''')
-
-        cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
 	    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    username TEXT NOT NULL,
