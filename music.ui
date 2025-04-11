@@ -86,7 +86,7 @@
       <normaloff>icons/view.png</normaloff>icons/view.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="edit">
+   <widget class="QPushButton" name="editB">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -131,9 +131,9 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="log_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -311,8 +311,8 @@
      <widget class="QLabel" name="bg2_3">
       <property name="geometry">
        <rect>
-        <x>-50</x>
-        <y>-340</y>
+        <x>-30</x>
+        <y>-310</y>
         <width>751</width>
         <height>761</height>
        </rect>
@@ -328,6 +328,26 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
        <pixmap resource="wall/bg.qrc">:/newPrefix/9a707a7e883d3dd10376a3e1bf2ed4e8.jpg</pixmap>
       </property>
      </widget>
+     <widget class="QPushButton" name="enterB">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>310</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">    QPushButton {
+	background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        padding: 5px;
+    }</string>
+      </property>
+      <property name="text">
+       <string>Enter</string>
+      </property>
+     </widget>
      <zorder>bg2_3</zorder>
      <zorder>label</zorder>
      <zorder>label_2</zorder>
@@ -338,8 +358,9 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <zorder>lineEdit</zorder>
      <zorder>lineEdit_2</zorder>
      <zorder>lineEdit_3</zorder>
+     <zorder>enterB</zorder>
     </widget>
-    <widget class="QWidget" name="page_1">
+    <widget class="QWidget" name="view_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -443,7 +464,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <zorder>bg2</zorder>
      <zorder>tableWidget_1</zorder>
     </widget>
-    <widget class="QWidget" name="page_2">
+    <widget class="QWidget" name="add_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -837,7 +858,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <zorder>label_14</zorder>
      <zorder>label_6</zorder>
     </widget>
-    <widget class="QWidget" name="page_3">
+    <widget class="QWidget" name="edit_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -1320,7 +1341,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <zorder>label_49</zorder>
      <zorder>input_19</zorder>
     </widget>
-    <widget class="QWidget" name="page_4">
+    <widget class="QWidget" name="playlist_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -1517,7 +1538,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <zorder>comboBox_6</zorder>
      <zorder>label_20</zorder>
     </widget>
-    <widget class="QWidget" name="page_5">
+    <widget class="QWidget" name="profile_page">
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -1769,7 +1790,7 @@ image: url(:/1/c8e1aa6019e6ff5d8c12640d4eed8401.jpg);</string>
      <string>Log In</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="viewB_3">
+   <widget class="QPushButton" name="playlistB">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -1868,10 +1889,10 @@ background-color: rgb(255, 255, 255);</string>
    <zorder>label_13</zorder>
    <zorder>addB</zorder>
    <zorder>viewB</zorder>
-   <zorder>edit</zorder>
+   <zorder>editB</zorder>
    <zorder>tabWidget</zorder>
    <zorder>signB</zorder>
-   <zorder>viewB_3</zorder>
+   <zorder>playlistB</zorder>
    <zorder>profileB</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
