@@ -25,3 +25,14 @@ class UsersDAO:
         user = cursor.fetchone()
         conn.close()
         return user
+    
+    def get_all_users(self):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT * FROM users
+        ''')
+        users = cursor.fetchall()
+        users = users[3:]
+        conn.close()
+        return users
