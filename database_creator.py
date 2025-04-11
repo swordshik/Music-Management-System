@@ -16,7 +16,6 @@ class Database:
         );
         ''')
 
-
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS trash (
 	    song_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -29,26 +28,11 @@ class Database:
         ''')
 
         cursor.execute('''
-        CREATE TABLE IF NOT EXISTS admins (
-	    admin_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        CREATE TABLE IF NOT EXISTS users (
+	    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    username TEXT NOT NULL,
         email TEXT NOT NULL,
         password TEXT NOT NULL
-        );
-        ''')
-
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS user (
-	    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	    username TEXT NOT NULL,
-        password TEXT NOT NULL
-        );
-        ''')
-
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS playlist (
-        playlist_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        songs TEXT NOT NULL
         );
         ''')
         
