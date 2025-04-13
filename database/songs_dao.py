@@ -1,5 +1,5 @@
 import sqlite3
-from song_entity import Song
+from entities.song_entity import Song
 
 class SongsDAO:
 

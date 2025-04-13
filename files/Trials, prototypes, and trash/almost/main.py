@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
-from music_ui import Ui_MainWindow
+from gui.music_ui import Ui_MainWindow
 from music_db import MusicDB
 
 class MusicApp(QMainWindow):
