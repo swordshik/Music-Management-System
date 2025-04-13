@@ -61,6 +61,7 @@ class MusicApp(QMainWindow):
 
     def show_playlist_page(self):
         self.ui.tabWidget.setCurrentIndex(4)
+        self.populate_filters()
 
     def show_profile_page(self):
         self.ui.tabWidget.setCurrentIndex(5)
@@ -86,8 +87,60 @@ class MusicApp(QMainWindow):
         self.current_song_id = None
 
     #Buttons def
+
+#playlist
+    def populate_filters(self):
+        # Get unique artists and years from database
+        artists = self.db.get_unique_artists()
+        years = self.db.get_unique_years()
+
+        # Clear the current items
+        self.ui.box_artist.clear()
+        self.ui.box_year.clear()
+
+        # Add default option (as defined in your UI)
+        self.ui.box_artist.addItem("Artist")
+        self.ui.box_year.addItem("Year")
+
+        # Populate with results from DB
+        for artist in artists:
+            self.ui.box_artist.addItem(artist)
+        for year in years:
+            self.ui.box_year.addItem(year)
+
     def generate_list(self):
-        pass
+        # Read current selections. Assuming the default texts are "Artist", "Genre", and "Year"
+        selected_artist = self.ui.box_artist.currentText()
+        selected_genre = self.ui.box_genre.currentText()
+        selected_year = self.ui.box_year.currentText()
+
+        # Base query and parameter list
+        query = "SELECT artist, song, genre, year FROM songs WHERE 1=1"
+        parameters = []
+
+        # Build query based on filter selections (skip default selection)
+        if selected_artist != "Artist":
+            query += " AND artist = ?"
+            parameters.append(selected_artist)
+        if selected_genre != "Genre":  # Assuming the default for genre is set to "Genre"
+            query += " AND genre = ?"
+            parameters.append(selected_genre)
+        if selected_year != "Year":
+            query += " AND year = ?"
+            parameters.append(selected_year)
+
+        # Execute the query
+        cursor = self.db.conn.execute(query, tuple(parameters))
+        results = cursor.fetchall()
+
+        # Update the playlist table widget
+        self.ui.song_table.setRowCount(0)
+        for row_data in results:
+            row = self.ui.song_table.rowCount()
+            self.ui.song_table.insertRow(row)
+            for col, data in enumerate(row_data):
+                self.ui.song_table.setItem(row, col, QTableWidgetItem(str(data)))
+#
     def edit_photo(self):
         pass
     def remove(self):
