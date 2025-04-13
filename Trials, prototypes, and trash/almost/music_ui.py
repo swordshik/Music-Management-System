@@ -255,12 +255,9 @@ class Ui_MainWindow(object):
         font.setBold(False)
         self.box_add.setFont(font)
         self.box_add.setObjectName("box_add")
-        self.box_add.addItem("")
-        self.box_add.addItem("")
-        self.box_add.addItem("")
-        self.box_add.addItem("")
-        self.box_add.addItem("")
-        self.box_add.addItem("")
+        for n in range(30):
+            self.box_add.addItem('')
+
         self.artist_in = QtWidgets.QLineEdit(parent=self.add_page)
         self.artist_in.setGeometry(QtCore.QRect(120, 70, 101, 31))
         font = QtGui.QFont()
@@ -514,12 +511,9 @@ class Ui_MainWindow(object):
         font.setBold(False)
         self.box_edit.setFont(font)
         self.box_edit.setObjectName("box_edit")
-        self.box_edit.addItem("")
-        self.box_edit.addItem("")
-        self.box_edit.addItem("")
-        self.box_edit.addItem("")
-        self.box_edit.addItem("")
-        self.box_edit.addItem("")
+        for n in range(30):
+            self.box_edit.addItem('')
+
         self.song_edit = QtWidgets.QLineEdit(parent=self.edit_page)
         self.song_edit.setGeometry(QtCore.QRect(120, 150, 101, 31))
         font = QtGui.QFont()
@@ -693,7 +687,9 @@ class Ui_MainWindow(object):
                                       "        padding: 5px;\n"
                                       "    }")
         self.box_genre.setObjectName("box_genre")
-        self.box_genre.addItem("")
+
+        for n in range(30):
+            self.box_genre.addItem('')
         self.box_yearr = QtWidgets.QComboBox(parent=self.playlist_page)
         self.box_yearr.setGeometry(QtCore.QRect(360, 60, 81, 31))
         self.box_yearr.setStyleSheet("    QComboBox {\n"
@@ -983,12 +979,15 @@ class Ui_MainWindow(object):
         item = self.list_table.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Year"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.view_page), _translate("MainWindow", "Page"))
-        self.box_add.setItemText(0, _translate("MainWindow", "Classical"))
-        self.box_add.setItemText(1, _translate("MainWindow", "Rap"))
-        self.box_add.setItemText(2, _translate("MainWindow", "Rock"))
-        self.box_add.setItemText(3, _translate("MainWindow", "Metal"))
-        self.box_add.setItemText(4, _translate("MainWindow", "Hip-hop"))
-        self.box_add.setItemText(5, _translate("MainWindow", "K-pop"))
+        genres = [
+            "Classical", "Rap", "Rock", "Metal", "Hip-hop", "K-pop",
+            "Pop", "Jazz", "Blues", "Country", "Electronic", "Folk",
+            "Reggae", "R&B", "Soul", "Punk", "Alternative", "Indie",
+            "Disco", "Funk", "Gospel", "Techno", "House", "Trance",
+            "Ambient", "Dubstep"
+        ]
+        for index, genre in enumerate(genres):
+            self.box_add.setItemText(index, _translate("MainWindow", genre))
         self.saveB_1.setText(_translate("MainWindow", "Save"))
         self.label_4.setText(_translate("MainWindow", "Song"))
         self.artist.setText(_translate("MainWindow", "Artist"))
@@ -1002,12 +1001,15 @@ class Ui_MainWindow(object):
         self.label_1.setText(_translate("MainWindow", "Artist"))
         self.label_47.setText(_translate("MainWindow", "Year"))
         self.label_45.setText(_translate("MainWindow", "Album"))
-        self.box_edit.setItemText(0, _translate("MainWindow", "Classical"))
-        self.box_edit.setItemText(1, _translate("MainWindow", "Rap"))
-        self.box_edit.setItemText(2, _translate("MainWindow", "Rock"))
-        self.box_edit.setItemText(3, _translate("MainWindow", "Metal"))
-        self.box_edit.setItemText(4, _translate("MainWindow", "Hip-hop"))
-        self.box_edit.setItemText(5, _translate("MainWindow", "K-pop"))
+        genres = [
+            "Classical", "Rap", "Rock", "Metal", "Hip-hop", "K-pop",
+            "Pop", "Jazz", "Blues", "Country", "Electronic", "Folk",
+            "Reggae", "R&B", "Soul", "Punk", "Alternative", "Indie",
+            "Disco", "Funk", "Gospel", "Techno", "House", "Trance",
+            "Ambient", "Dubstep"
+        ]
+        for index, genre in enumerate(genres):
+            self.box_edit.setItemText(index, _translate("MainWindow", genre))
         self.label_46.setText(_translate("MainWindow", "Song"))
         self.label_48.setText(_translate("MainWindow", "Genre"))
         self.label_43.setText(_translate("MainWindow", "Lyrics:"))
@@ -1024,7 +1026,15 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Year"))
         self.genB.setText(_translate("MainWindow", "Generate Playlist"))
         self.box_artist.setItemText(0, _translate("MainWindow", "Artist"))
-        self.box_genre.setItemText(0, _translate("MainWindow", "Genre"))
+        genres = [
+            "Genre", "Classical", "Rap", "Rock", "Metal", "Hip-hop", "K-pop",
+            "Pop", "Jazz", "Blues", "Country", "Electronic", "Folk",
+            "Reggae", "R&B", "Soul", "Punk", "Alternative", "Indie",
+            "Disco", "Funk", "Gospel", "Techno", "House", "Trance",
+            "Ambient", "Dubstep"]
+        for index, genre in enumerate(genres):
+            self.box_genre.setItemText(index, _translate("MainWindow", genre))
+
         self.box_yearr.setItemText(0, _translate("MainWindow", "Year"))
         self.label_20.setText(_translate("MainWindow", "Filter:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.playlist_page), _translate("MainWindow", "Page"))
