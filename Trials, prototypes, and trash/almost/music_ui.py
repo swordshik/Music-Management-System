@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import (
     QHBoxLayout, QGridLayout, QFrame, QMenuBar, QMainWindow, QMessageBox)
 from PyQt6.QtCore import Qt
 from PyQt6 import QtCore, QtGui, QtWidgets  # NOTE: This is imported twice; consider removing duplicate import.
+import bg_rc  # SUGGESTION: Ensure that bg_rc is accessible and document its usage.
 
 
 # Class definition for the main UI window.
@@ -151,14 +152,14 @@ class Ui_MainWindow(object):
         self.bg_log.setText("")
         self.bg_log.setObjectName("bg_log")
         # Login button for submitting the login/sign-up form.
-        self.logB = QtWidgets.QPushButton(parent=self.log_page)
-        self.logB.setGeometry(QtCore.QRect(290, 270, 91, 31))
-        self.logB.setStyleSheet("    QPushButton {\n"
+        self.enterB = QtWidgets.QPushButton(parent=self.log_page)
+        self.enterB.setGeometry(QtCore.QRect(290, 270, 91, 31))
+        self.enterB.setStyleSheet("    QPushButton {\n"
                                 "    background-color: rgb(255, 255, 255);\n"
                                 "        border-radius: 10px;\n"
                                 "        padding: 5px;\n"
                                 "    }")
-        self.logB.setObjectName("logB")
+        self.enterB.setObjectName("enterB")
         self.password_in = QtWidgets.QLineEdit(parent=self.log_page)
         self.password_in.setGeometry(QtCore.QRect(290, 230, 171, 31))
         self.password_in.setObjectName("password_in")
@@ -170,7 +171,7 @@ class Ui_MainWindow(object):
         self.label_18.raise_()
         self.name_in.raise_()
         self.email_in.raise_()
-        self.logB.raise_()
+        self.enterB.raise_()
         self.password_in.raise_()
         self.tabWidget.addTab(self.log_page, "")
 
@@ -966,7 +967,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Name:"))
         self.label_16.setText(_translate("MainWindow", "Email:"))
         self.label_18.setText(_translate("MainWindow", "Password:"))
-        self.logB.setText(_translate("MainWindow", "Enter"))
+        self.enterB.setText(_translate("MainWindow", "Enter"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.log_page), _translate("MainWindow", "Page"))
         item = self.list_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Artist"))

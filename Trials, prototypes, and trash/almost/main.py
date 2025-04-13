@@ -41,7 +41,7 @@ class MusicApp(QMainWindow):
         self.ui.logoutB.clicked.connect(self.log_out)
         self.ui.delete_acB.clicked.connect(self.delete_account)
 
-        self.ui.logB.clicked.connect(self.log)
+        self.ui.enterB.clicked.connect(self.log)
 
 #pages
     def show_log_page(self):
@@ -76,16 +76,16 @@ class MusicApp(QMainWindow):
         self.ui.lyrics_1.clear()
 
     def clear_edit_fields(self):
-        self.ui.searchB.clear()
+        self.ui.song_search.clear()  # Correct: Clear the QLineEdit for song search on the edit page.
         self.ui.artist_edit.clear()
-        self.ui.album_in.clear()
+        self.ui.album_edit.clear()  # Correct: Use album_edit for the edit page.
         self.ui.song_edit.clear()
         self.ui.box_genre.setCurrentIndex(0)
         self.ui.year_edit.clear()
         self.ui.lyrics_2.clear()
         self.current_song_id = None
 
-#Buttons def
+    #Buttons def
     def generate_list(self):
         pass
     def edit_photo(self):
@@ -123,7 +123,7 @@ class MusicApp(QMainWindow):
                 self.ui.list_table.setItem(row, col, QTableWidgetItem(str(data)))
 
     def search_song(self):
-        song_name = self.ui.searchB.text().strip()
+        song_name = self.ui.song_search.text().strip()
         if not song_name:
             QMessageBox.warning(self, "Input Error", "Enter a song name to search.")
             return
