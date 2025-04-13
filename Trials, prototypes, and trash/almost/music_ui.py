@@ -9,7 +9,6 @@ from PyQt6.QtWidgets import (
     QHBoxLayout, QGridLayout, QFrame, QMenuBar, QMainWindow, QMessageBox)
 from PyQt6.QtCore import Qt
 from PyQt6 import QtCore, QtGui, QtWidgets  # NOTE: This is imported twice; consider removing duplicate import.
-import bg_rc  # SUGGESTION: Ensure that bg_rc is accessible and document its usage.
 
 
 # Class definition for the main UI window.
@@ -691,15 +690,15 @@ class Ui_MainWindow(object):
 
         for n in range(30):
             self.box_genre.addItem('')
-        self.box_yearr = QtWidgets.QComboBox(parent=self.playlist_page)
-        self.box_yearr.setGeometry(QtCore.QRect(360, 60, 81, 31))
-        self.box_yearr.setStyleSheet("    QComboBox {\n"
+        self.box_year = QtWidgets.QComboBox(parent=self.playlist_page)
+        self.box_year.setGeometry(QtCore.QRect(360, 60, 81, 31))
+        self.box_year.setStyleSheet("    QComboBox {\n"
                                       "    background-color: rgb(255, 255, 255);\n"
                                       "        border-radius: 10px;\n"
                                       "        padding: 5px;\n"
                                       "    }")
-        self.box_yearr.setObjectName("box_yearr")
-        self.box_yearr.addItem("")
+        self.box_year.setObjectName("box_year")
+        self.box_year.addItem("")
         self.label_20 = QtWidgets.QLabel(parent=self.playlist_page)
         self.label_20.setGeometry(QtCore.QRect(80, 60, 61, 31))
         self.label_20.setStyleSheet("    QLabel {\n"
@@ -725,7 +724,7 @@ class Ui_MainWindow(object):
         self.genB.raise_()
         self.box_artist.raise_()
         self.box_genre.raise_()
-        self.box_yearr.raise_()
+        self.box_year.raise_()
         self.label_20.raise_()
         self.tabWidget.addTab(self.playlist_page, "")
 
@@ -1036,7 +1035,7 @@ class Ui_MainWindow(object):
         for index, genre in enumerate(genres):
             self.box_genre.setItemText(index, _translate("MainWindow", genre))
 
-        self.box_yearr.setItemText(0, _translate("MainWindow", "Year"))
+        self.box_year.setItemText(0, _translate("MainWindow", "Year"))
         self.label_20.setText(_translate("MainWindow", "Filter:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.playlist_page), _translate("MainWindow", "Page"))
         self.user_label.setText(_translate("MainWindow", "Welcome UserName !"))

@@ -48,3 +48,13 @@ class MusicDB:
 
     def close(self):
         self.conn.close()
+
+    def get_unique_artists(self):
+        query = "SELECT DISTINCT artist FROM songs"
+        cursor = self.conn.execute(query)
+        return [row[0] for row in cursor.fetchall()]
+
+    def get_unique_years(self):
+        query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != ''"
+        cursor = self.conn.execute(query)
+        return [row[0] for row in cursor.fetchall()]
