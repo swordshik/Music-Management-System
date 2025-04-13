@@ -1,11 +1,12 @@
 class Song:
     
-    def __init__(self, artist, album, title, genre, release_year):
+    def __init__(self, artist, album, title, genre, release_year, lyrics=None):
         self.artist = artist
         self.album = album
         self.title = title
         self.genre = genre
         self.release_year = release_year
+        self.lyrics = lyrics
 
     def get_attributes(self):
         return {
