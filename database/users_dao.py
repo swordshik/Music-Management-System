@@ -1,5 +1,5 @@
 import sqlite3
-from user_entity import User
+from entities.user_entity import User
 
 class UsersDAO:
 

@@ -12,7 +12,8 @@ class Database:
 	    Album TEXT,
 	    Title TEXT NOT NULL,
 	    Year INTEGER,
-	    Genre TEXT
+	    Genre TEXT,
+        Lyrics TEXT
         );
         ''')
 
@@ -21,7 +22,8 @@ class Database:
 	    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	    username TEXT NOT NULL,
         email TEXT NOT NULL,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        status TEXT
         );
         ''')
         
