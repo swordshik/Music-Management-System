@@ -740,6 +740,7 @@ class Ui_MainWindow(object):
                                       "        padding: 5px;\n"
                                       "    }")
         self.user_label.setObjectName("user_label")
+
         self.status_label = QtWidgets.QLabel(parent=self.profile_page)
         self.status_label.setGeometry(QtCore.QRect(50, 70, 171, 31))
         self.status_label.setStyleSheet("    QLabel {\n"
@@ -1038,7 +1039,9 @@ class Ui_MainWindow(object):
         self.box_year.setItemText(0, _translate("MainWindow", "Year"))
         self.label_20.setText(_translate("MainWindow", "Filter:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.playlist_page), _translate("MainWindow", "Page"))
-        self.user_label.setText(_translate("MainWindow", "Welcome UserName !"))
+
+        self.user_label.setText(_translate("MainWindow", f"Welcome !"))
+
         self.status_label.setText(_translate("MainWindow", "Status: ..."))
         self.profile_label1.setText(_translate("MainWindow", "No. Songs / Users: ..."))
         self.profile_label2.setText(_translate("MainWindow", "No. Songs of the User / Artist"))
