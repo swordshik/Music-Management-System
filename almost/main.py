@@ -2,7 +2,7 @@ import sys
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
 from music_ui import Ui_MainWindow
-from music_db import MusicManagementDB
+from music_db import MusicDB
 
 class MusicApp(QMainWindow):
     def __init__(self):
@@ -11,7 +11,7 @@ class MusicApp(QMainWindow):
         self.ui.setupUi(self)
         # Hide the tab headers so only one page is visible at a time.
         self.ui.tabWidget.tabBar().hide()
-        self.db = MusicManagementDB()
+        self.db = MusicDB()
         self.current_song_id = None  # For editing operations
         self.setup_connections()
         self.ui.tabWidget.setCurrentIndex(1)  # Start with View List page
@@ -29,6 +29,8 @@ class MusicApp(QMainWindow):
 
         # Buttons
         self.ui.saveB_1.clicked.connect(self.save_song)
+
+        self.ui.enterB.clicked.connect(self.validate_login)
 
         self.ui.searchB.clicked.connect(self.search_song)
         self.ui.saveB_2.clicked.connect(self.update_song)
@@ -224,6 +226,23 @@ class MusicApp(QMainWindow):
     def closeEvent(self, event):
         self.db.close()
         event.accept()
+
+    def validate_login(self):
+        username = self.ui.username_in.text().strip()
+        email = self.ui.email_in.text().strip()
+        password = self.ui.password_in.text().strip()
+        if not username or not password or not email:
+            QMessageBox.warning(self, "Input Error", "Please fill in both username and password.")
+            return
+        if self.validate_user(username, password):
+            QMessageBox.information(self, "Login Success", "Welcome!")
+            self.show_view_page()
+        else:
+            QMessageBox.warning(self, "Login Failed", "Invalid username or password.")
+
+    def validate_user(self, username, password):
+        
+        return username == "admin" and password == "admin"
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
