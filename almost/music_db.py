@@ -26,7 +26,7 @@ class MusicManagementDB:
             genre TEXT,
             year TEXT,
             lyrics TEXT,
-            FOREIGN KEY(user_id) REFERENCES user_table(id)
+            FOREIGN KEY(user_id) REFERENCES user_table(user_id)
         );
         """
         self.conn.execute(user_query)
@@ -100,7 +100,9 @@ class MusicManagementDB:
 
     def count(self, user_id):
         if user_id<0:
-            pass
+            query = "SELECT * FROM user_table WHERE user_id = ?"
+            cursor = self.conn.execute(query, (user_id,))
+            return len(cursor.fetchall()) - 3
 
         else:
             query = "SELECT * FROM songs WHERE user_id = ?"

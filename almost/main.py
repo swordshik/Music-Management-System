@@ -9,12 +9,11 @@ class MusicApp(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        # Hide the tab headers so only one page is visible at a time.
         self.ui.tabWidget.tabBar().hide()
         self.db = MusicManagementDB()
-        self.current_song_id = None  # For editing operations
+        self.current_song_id = None
         self.setup_connections()
-        self.ui.tabWidget.setCurrentIndex(0)  # Start with View List page
+        self.ui.tabWidget.setCurrentIndex(0)
         self.load_table()
 
     def setup_connections(self):
@@ -26,6 +25,8 @@ class MusicApp(QMainWindow):
         self.ui.editB.clicked.connect(self.show_edit_page)
         self.ui.playlistB.clicked.connect(self.show_playlist_page)
         self.ui.profileB.clicked.connect(self.show_profile_page)
+
+        self.ui.profile_table.itemSelectionChanged.connect(self.handle_profile_selection)
 
         # Buttons
         self.ui.saveB_1.clicked.connect(self.save_song)
@@ -42,8 +43,15 @@ class MusicApp(QMainWindow):
         self.ui.delete_acB.clicked.connect(self.delete_account)
 
         self.ui.enterB.clicked.connect(self.log)
+#
+    def handle_profile_selection(self):
+        selected_items = self.ui.profile_table.selectedItems()
+        if selected_items:
+            self.selected_song_name = selected_items[2].text()  # Assuming column 2 is 'song'
+        else:
+            self.selected_song_name = None
 
-#pages
+    #pages
     def show_log_page(self):
         self.ui.tabWidget.setCurrentIndex(0)
 
@@ -64,16 +72,26 @@ class MusicApp(QMainWindow):
         self.populate_filters()
 
     def show_profile_page(self):
-        self.ui.tabWidget.setCurrentIndex(5)
+        if not hasattr(self, 'current_user'):
+            QMessageBox.warning(self, "Access Denied", "Please log in to view your profile.")
+            self.show_log_page()
+            return
+
         user_status = self.current_user["is_admin"]
         user_name = self.current_user["name"]
-        if user_status == "User" :
+
+        if user_status == "User":
             self.user_table()
+            num_songs = self.db.count(self.current_user["id"])
+            self.ui.num_label.setText(f"No. of songs added: {num_songs}")
         else:
             self.admin_table()
+            num_users = len(self.db.get_users())
+            self.ui.num_label.setText(f"Registered users: {num_users}")
+
         self.ui.user_label.setText(f"Welcome, {user_name}!")
         self.ui.status_label.setText(f'Your status is {user_status}')
-        self.ui.num_label.setText(f'No. of songs added: {self.db.count(self.current_user["id"])}')
+        self.ui.tabWidget.setCurrentIndex(5)
 
     def clear_add_fields(self):
         self.ui.artist_in.clear()
@@ -84,63 +102,53 @@ class MusicApp(QMainWindow):
         self.ui.lyrics_1.clear()
 
     def clear_edit_fields(self):
-        self.ui.song_search.clear()  # Correct: Clear the QLineEdit for song search on the edit page.
+        self.ui.song_search.clear()
         self.ui.artist_edit.clear()
-        self.ui.album_edit.clear()  # Correct: Use album_edit for the edit page.
+        self.ui.album_edit.clear()
         self.ui.song_edit.clear()
         self.ui.box_genre.setCurrentIndex(0)
         self.ui.year_edit.clear()
         self.ui.lyrics_2.clear()
         self.current_song_id = None
 
-    #Buttons def
 
 #playlist page
     def populate_filters(self):
-        # Get unique artists and years from database
         artists = self.db.get_unique_artists()
         years = self.db.get_unique_years()
 
-        # Clear the current items
         self.ui.box_artist.clear()
         self.ui.box_year.clear()
 
-        # Add default option (as defined in your UI)
         self.ui.box_artist.addItem("Artist")
         self.ui.box_year.addItem("Year")
 
-        # Populate with results from DB
         for artist in artists:
             self.ui.box_artist.addItem(artist)
         for year in years:
             self.ui.box_year.addItem(year)
 
     def generate_list(self):
-        # Read current selections. Assuming the default texts are "Artist", "Genre", and "Year"
         selected_artist = self.ui.box_artist.currentText()
         selected_genre = self.ui.box_genre.currentText()
         selected_year = self.ui.box_year.currentText()
 
-        # Base query and parameter list
         query = "SELECT artist, song, genre, year FROM songs WHERE 1=1"
         parameters = []
 
-        # Build query based on filter selections (skip default selection)
         if selected_artist != "Artist":
             query += " AND artist = ?"
             parameters.append(selected_artist)
-        if selected_genre != "Genre":  # Assuming the default for genre is set to "Genre"
+        if selected_genre != "Genre":
             query += " AND genre = ?"
             parameters.append(selected_genre)
         if selected_year != "Year":
             query += " AND year = ?"
             parameters.append(selected_year)
 
-        # Execute the query
         cursor = self.db.conn.execute(query, tuple(parameters))
         results = cursor.fetchall()
 
-        # Update the playlist table widget
         self.ui.song_table.setRowCount(0)
         for row_data in results:
             row = self.ui.song_table.rowCount()
@@ -150,14 +158,62 @@ class MusicApp(QMainWindow):
 # Profile page
     def edit_photo(self):
         pass
+
     def remove(self):
-        pass
+        if not hasattr(self, 'current_user'):
+            QMessageBox.warning(self, "Error", "You need to be logged in.")
+            return
+
+        if not hasattr(self, 'selected_song_name') or not self.selected_song_name:
+            QMessageBox.warning(self, "No Selection", "Please select a song to remove.")
+            return
+
+        reply = QMessageBox.question(
+            self,
+            "Confirm Deletion",
+            f"Are you sure you want to delete the song '{self.selected_song_name}'?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if reply == QMessageBox.StandardButton.Yes:
+            song = self.db.search_song(self.selected_song_name)
+            if song and song[1] == self.current_user["id"]:  # Make sure it belongs to the user
+                self.db.delete_song(song[0])  # song_id
+                QMessageBox.information(self, "Deleted", "Song deleted successfully.")
+                self.user_table()  # Refresh the table
+                self.selected_song_name = None
+            else:
+                QMessageBox.warning(self, "Error", "You can only delete your own songs.")
+
     def log_out(self):
+        if hasattr(self, 'current_user'):
+            del self.current_user
         self.clear_log_fields()
+        QMessageBox.information(self, "Logged Out", "You have been successfully logged out.")
         self.show_log_page()
 
     def delete_account(self):
-        pass
+        if not hasattr(self, 'current_user'):
+            QMessageBox.warning(self, "Error", "You need to be logged in.")
+            return
+
+        reply = QMessageBox.question(
+            self,
+            "Delete Account",
+            "Are you sure you want to permanently delete your account and all your songs?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if reply == QMessageBox.StandardButton.Yes:
+            user_id = self.current_user["id"]
+            success = self.db.delete_user(user_id)
+            if success:
+                QMessageBox.information(self, "Account Deleted", "Your account has been successfully deleted.")
+                self.clear_log_fields()
+                del self.current_user
+                self.show_log_page()
+            else:
+                QMessageBox.warning(self, "Error", "There was a problem deleting your account.")
 
     def clear_log_fields(self):
         self.ui.name_in.clear()
@@ -192,10 +248,8 @@ class MusicApp(QMainWindow):
             QMessageBox.warning(self, "Input Error", "Please fill out all login fields.")
             return
 
-        # First, try to get the user from the DB.
         user = self.db.get_user(email, password)
         if user is None:
-            # User not found; prompt to create a new account.
             reply = QMessageBox.question(
                 self,
                 "User Not Found",
@@ -209,10 +263,8 @@ class MusicApp(QMainWindow):
                                             "Your account has been created. Please log in again.")
                 else:
                     QMessageBox.warning(self, "Error", "An account with this email already exists.")
-            # If the user chooses No or account creation fails, simply return.
             return
         else:
-            # User exists. If it's an admin, we set special behavior in the profile page.
             user_id, user_name, user_email, is_admin = user
             self.current_user = {
                 "id": user_id,
@@ -221,19 +273,25 @@ class MusicApp(QMainWindow):
                 "is_admin": "Admin" if is_admin == 1 else "User"
             }
             QMessageBox.information(self, "Welcome", f"Welcome, {user_name}!")
-            # Load the user's data (e.g., songs owned by this user) and navigate to the profile page.
             self.show_profile_page()
 #
     def save_song(self):
+        if not hasattr(self, 'current_user'):
+            QMessageBox.warning(self, "Authentication Required", "Please log in to add a song.")
+            self.show_log_page()
+            return
+
         artist = self.ui.artist_in.text().strip()
         album = self.ui.album_in.text().strip()
         song = self.ui.song_in.text().strip()
         genre = self.ui.box_add.currentText()
         year = self.ui.year_in.text().strip()
         lyrics = self.ui.lyrics_1.toPlainText().strip()
+
         if not artist or not album or not song:
             QMessageBox.warning(self, "Input Error", "Please fill in Artist, Album, and Song fields.")
             return
+
         self.db.add_song(self.current_user["id"], artist, album, song, genre, year, lyrics)
         QMessageBox.information(self, "Success", "Song added successfully!")
         self.clear_add_fields()
@@ -248,13 +306,19 @@ class MusicApp(QMainWindow):
                 self.ui.list_table.setItem(row, col, QTableWidgetItem(str(data)))
 
     def search_song(self):
+        if not hasattr(self, 'current_user'):
+            QMessageBox.warning(self, "Authentication Required", "Please log in to search for a song.")
+            self.show_log_page()
+            return
+
         song_name = self.ui.song_search.text().strip()
         if not song_name:
             QMessageBox.warning(self, "Input Error", "Enter a song name to search.")
             return
+
         result = self.db.search_song(song_name)
         if result:
-            self.current_song_id = result[0]  # id is at index 0
+            self.current_song_id = result[0]
             self.ui.artist_edit.setText(result[2])
             self.ui.album_edit.setText(result[3])
             self.ui.song_edit.setText(result[4])
