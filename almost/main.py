@@ -233,13 +233,13 @@ class MusicApp(QMainWindow):
         result = self.db.search_song(song_name)
         if result:
             self.current_song_id = result[0]  # id is at index 0
-            self.ui.artist_edit.setText(result[1])
-            self.ui.album_edit.setText(result[2])
-            self.ui.song_edit.setText(result[3])
-            index = self.ui.box_edit.findText(result[4])
+            self.ui.artist_edit.setText(result[2])
+            self.ui.album_edit.setText(result[3])
+            self.ui.song_edit.setText(result[4])
+            index = self.ui.box_edit.findText(result[5])
             self.ui.box_edit.setCurrentIndex(index if index != -1 else 0)
-            self.ui.year_edit.setText(result[5])
-            self.ui.lyrics_2.setPlainText(result[6])
+            self.ui.year_edit.setText(result[6])
+            self.ui.lyrics_2.setPlainText(result[7])
         else:
             QMessageBox.information(self, "Not Found", "Song not found.")
 

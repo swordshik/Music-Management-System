@@ -66,6 +66,7 @@ class MusicManagementDB:
     def search_song(self, song):
         query = "SELECT * FROM songs WHERE song = ?"
         cursor = self.conn.execute(query, (song,))
+        print("i found")
         return cursor.fetchone()
 
     def update_song(self, song_id, artist, album, song, genre, year, lyrics):
