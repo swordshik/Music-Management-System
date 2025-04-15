@@ -2,7 +2,7 @@ import sys
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
 from music_ui import Ui_MainWindow
-from music_db import MusicDB
+from music_db import MusicManagementDB
 
 class MusicApp(QMainWindow):
     def __init__(self):
@@ -11,7 +11,7 @@ class MusicApp(QMainWindow):
         self.ui.setupUi(self)
         # Hide the tab headers so only one page is visible at a time.
         self.ui.tabWidget.tabBar().hide()
-        self.db = MusicDB()
+        self.db = MusicManagementDB()
         self.current_song_id = None  # For editing operations
         self.setup_connections()
         self.ui.tabWidget.setCurrentIndex(1)  # Start with View List page
