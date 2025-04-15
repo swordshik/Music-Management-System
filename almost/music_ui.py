@@ -137,8 +137,19 @@ class Ui_MainWindow(object):
         self.bg_log.setText("")
         self.bg_log.setObjectName("bg_log")
         # Login button for submitting the login/sign-up form.
+
+        self.forgotB = QtWidgets.QPushButton(parent=self.log_page)
+        self.forgotB.setGeometry(QtCore.QRect(380, 270, 81, 31))
+        self.forgotB.setStyleSheet("    QPushButton {\n"
+                                  "    background-color: rgb(255, 255, 255);\n"
+                                  "        border-radius: 10px;\n"
+                                  "        padding: 5px;\n"
+                                  "    }")
+        self.forgotB.setText("Forgot?")
+        self.forgotB.setObjectName("forgotB")
+
         self.enterB = QtWidgets.QPushButton(parent=self.log_page)
-        self.enterB.setGeometry(QtCore.QRect(290, 270, 91, 31))
+        self.enterB.setGeometry(QtCore.QRect(290, 270, 81, 31))
         self.enterB.setStyleSheet("    QPushButton {\n"
                                 "    background-color: rgb(255, 255, 255);\n"
                                 "        border-radius: 10px;\n"
@@ -157,6 +168,7 @@ class Ui_MainWindow(object):
         self.email_in.raise_()
         self.enterB.raise_()
         self.password_in.raise_()
+        self.forgotB.raise_()
         self.tabWidget.addTab(self.log_page, "")
 
         # --- Second Tab: View List Page ---

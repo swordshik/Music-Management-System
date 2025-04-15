@@ -27,6 +27,7 @@ class MusicApp(QMainWindow):
         self.ui.profileB.clicked.connect(self.show_profile_page)
 
         self.ui.profile_table.itemSelectionChanged.connect(self.handle_profile_selection)
+        self.ui.forgotB.clicked.connect(self.show_reset_password_dialog)
 
         # Buttons
         self.ui.saveB_1.clicked.connect(self.save_song)
@@ -90,7 +91,8 @@ class MusicApp(QMainWindow):
             self.ui.num_label.setText(f"Registered users: {num_users}")
 
         self.ui.user_label.setText(f"Welcome, {user_name}!")
-        self.ui.status_label.setText(f'Your status is {user_status}')
+        user_id = self.current_user["id"]
+        self.ui.status_label.setText(f'Your status is {user_status} | ID: {user_id}')
         self.ui.tabWidget.setCurrentIndex(5)
 
     def clear_add_fields(self):
@@ -190,6 +192,8 @@ class MusicApp(QMainWindow):
             del self.current_user
         self.clear_log_fields()
         QMessageBox.information(self, "Logged Out", "You have been successfully logged out.")
+        self.ui.signB.setText("Log In")
+        self.ui.label.setText("Log in / Sign up")
         self.show_log_page()
 
     def delete_account(self):
@@ -249,22 +253,7 @@ class MusicApp(QMainWindow):
             return
 
         user = self.db.get_user(email, password)
-        if user is None:
-            reply = QMessageBox.question(
-                self,
-                "User Not Found",
-                "User not found. Would you like to create a new account?",
-                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-            )
-            if reply == QMessageBox.StandardButton.Yes:
-                created = self.db.create_user(name, email, password)
-                if created:
-                    QMessageBox.information(self, "Account Created",
-                                            "Your account has been created. Please log in again.")
-                else:
-                    QMessageBox.warning(self, "Error", "An account with this email already exists.")
-            return
-        else:
+        if user:
             user_id, user_name, user_email, is_admin = user
             self.current_user = {
                 "id": user_id,
@@ -273,8 +262,75 @@ class MusicApp(QMainWindow):
                 "is_admin": "Admin" if is_admin == 1 else "User"
             }
             QMessageBox.information(self, "Welcome", f"Welcome, {user_name}!")
+            self.ui.signB.setText(user_name)
+            self.ui.label.setText(f"Hello, {user_name} 👋")
             self.show_profile_page()
-#
+            return
+
+        # If credentials are wrong, check if the email is already in use
+        email_check = self.db.conn.execute("SELECT * FROM user_table WHERE email = ?", (email,)).fetchone()
+        if email_check:
+            QMessageBox.warning(self, "Login Failed", "Incorrect password for this email.")
+            return
+
+        # If email doesn't exist, offer to create account
+        reply = QMessageBox.question(
+            self,
+            "User Not Found",
+            "Email not found. Would you like to create a new account?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if reply == QMessageBox.StandardButton.Yes:
+            created = self.db.create_user(name, email, password)
+            if created:
+                QMessageBox.information(self, "Account Created", "Your account has been created. Please log in again.")
+            else:
+                QMessageBox.warning(self, "Error", "An account with this email already exists.")
+
+    def show_reset_password_dialog(self):
+        email, ok_email = QtWidgets.QInputDialog.getText(self, "Reset Password", "Enter your email:")
+        if not ok_email or not email:
+            return
+
+        user_id, ok_id = QtWidgets.QInputDialog.getInt(self, "Reset Password", "Enter your User ID:")
+        if not ok_id:
+            return
+
+        cursor = self.db.conn.execute("SELECT user_id, name FROM user_table WHERE email = ?", (email,))
+        result = cursor.fetchone()
+
+        if result and result[0] == user_id:
+            name = result[1]
+
+            # Ask for new password
+            new_pass, ok1 = QtWidgets.QInputDialog.getText(self, f"Hi {name}!", "Enter new password:",
+                                                           QtWidgets.QLineEdit.EchoMode.Password)
+            confirm_pass, ok2 = QtWidgets.QInputDialog.getText(self, "Confirm Password", "Re-enter password:",
+                                                               QtWidgets.QLineEdit.EchoMode.Password)
+
+            if not ok1 or not ok2:
+                QMessageBox.warning(self, "Cancelled", "Password reset cancelled.")
+                return
+
+            # Password matching check
+            if new_pass != confirm_pass:
+                QMessageBox.warning(self, "Mismatch", "Passwords do not match.")
+                return
+
+            # Password strength check
+            if len(new_pass) < 6:
+                QMessageBox.warning(self, "Weak Password", "Password must be at least 6 characters long.")
+                return
+
+            # Save new password
+            self.db.conn.execute("UPDATE user_table SET password = ? WHERE user_id = ?", (new_pass, user_id))
+            self.db.conn.commit()
+            QMessageBox.information(self, "Success", "Your password has been updated!")
+        else:
+            QMessageBox.warning(self, "Invalid", "No matching user found for that email and ID.")
+
+    #
     def save_song(self):
         if not hasattr(self, 'current_user'):
             QMessageBox.warning(self, "Authentication Required", "Please log in to add a song.")
