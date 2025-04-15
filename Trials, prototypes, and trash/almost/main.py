@@ -212,7 +212,7 @@ class MusicApp(QMainWindow):
         if not artist or not album or not song:
             QMessageBox.warning(self, "Input Error", "Please fill in Artist, Album, and Song fields.")
             return
-        self.db.add_song(artist, album, song, genre, year, lyrics)
+        self.db.add_song(self.current_user["id"], artist, album, song, genre, year, lyrics)
         QMessageBox.information(self, "Success", "Song added successfully!")
         self.clear_add_fields()
 
