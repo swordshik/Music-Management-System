@@ -749,27 +749,20 @@ class Ui_MainWindow(object):
                                         "        padding: 5px;\n"
                                         "    }")
         self.status_label.setObjectName("status_label")
-        self.profile_label1 = QtWidgets.QLabel(parent=self.profile_page)
-        self.profile_label1.setGeometry(QtCore.QRect(50, 110, 171, 31))
-        self.profile_label1.setStyleSheet("    QLabel {\n"
-                                          "    background-color: rgb(255, 255, 255);\n"
-                                          "        border-radius: 10px;\n"
-                                          "        padding: 5px;\n"
-                                          "    }")
-        self.profile_label1.setObjectName("profile_label1")
+
         self.tableWidget_3 = QtWidgets.QTableWidget(parent=self.profile_page)
         self.tableWidget_3.setGeometry(QtCore.QRect(40, 160, 441, 221))
         self.tableWidget_3.setObjectName("tableWidget_3")
         self.tableWidget_3.setColumnCount(0)
         self.tableWidget_3.setRowCount(0)
-        self.profile_label2 = QtWidgets.QLabel(parent=self.profile_page)
-        self.profile_label2.setGeometry(QtCore.QRect(510, 180, 131, 31))
-        self.profile_label2.setStyleSheet("    QLabel {\n"
+        self.num_label = QtWidgets.QLabel(parent=self.profile_page)
+        self.num_label.setGeometry(QtCore.QRect(510, 180, 131, 31))
+        self.num_label.setStyleSheet("    QLabel {\n"
                                           "    background-color: rgb(255, 255, 255);\n"
                                           "        border-radius: 10px;\n"
                                           "        padding: 5px;\n"
                                           "    }")
-        self.profile_label2.setObjectName("profile_label2")
+        self.num_label.setObjectName("num_label")
         # Buttons for profile actions: Remove song, Log Out, Delete Account.
         self.removeB = QtWidgets.QPushButton(parent=self.profile_page)
         self.removeB.setGeometry(QtCore.QRect(510, 230, 131, 31))
@@ -823,9 +816,8 @@ class Ui_MainWindow(object):
         self.bg_profile.raise_()
         self.user_label.raise_()
         self.status_label.raise_()
-        self.profile_label1.raise_()
         self.tableWidget_3.raise_()
-        self.profile_label2.raise_()
+        self.num_label.raise_()
         self.removeB.raise_()
         self.logoutB.raise_()
         self.delete_acB.raise_()
@@ -1043,8 +1035,7 @@ class Ui_MainWindow(object):
         self.user_label.setText(_translate("MainWindow", f"Welcome !"))
 
         self.status_label.setText(_translate("MainWindow", "Status: ..."))
-        self.profile_label1.setText(_translate("MainWindow", "No. Songs / Users: ..."))
-        self.profile_label2.setText(_translate("MainWindow", "No. Songs of the User / Artist"))
+        self.num_label.setText(_translate("MainWindow", "No. Songs of the User / Artist"))
         self.removeB.setText(_translate("MainWindow", "Remove"))
         self.logoutB.setText(_translate("MainWindow", "Log Out"))
         self.delete_acB.setText(_translate("MainWindow", "Delete Account"))

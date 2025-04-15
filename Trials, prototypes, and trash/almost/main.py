@@ -65,8 +65,11 @@ class MusicApp(QMainWindow):
 
     def show_profile_page(self):
         self.ui.tabWidget.setCurrentIndex(5)
-        self.load_table() # change
-
+        self.load_table()
+        user_status = self.current_user["is_admin"]
+        user_name = self.current_user["name"]
+        self.ui.user_label.setText(f"Welcome, {user_name}!")
+        self.ui.status_label.setText(f'Your status is {user_status}')
 
     def clear_add_fields(self):
         self.ui.artist_in.clear()
@@ -88,7 +91,7 @@ class MusicApp(QMainWindow):
 
     #Buttons def
 
-#playlist
+#playlist page
     def populate_filters(self):
         # Get unique artists and years from database
         artists = self.db.get_unique_artists()
@@ -140,15 +143,23 @@ class MusicApp(QMainWindow):
             self.ui.song_table.insertRow(row)
             for col, data in enumerate(row_data):
                 self.ui.song_table.setItem(row, col, QTableWidgetItem(str(data)))
-#
+# Profile page
     def edit_photo(self):
         pass
     def remove(self):
         pass
     def log_out(self):
-        pass
+        self.clear_log_fields()
+        self.show_log_page()
+
     def delete_account(self):
         pass
+
+    def clear_log_fields(self):
+        self.ui.name_in.clear()
+        self.ui.email_in.clear()
+        self.ui.password_in.clear()
+
 # Log page
     def log(self):
         name = self.ui.name_in.text().strip()
@@ -185,12 +196,12 @@ class MusicApp(QMainWindow):
                 "id": user_id,
                 "name": user_name,
                 "email": user_email,
-                "is_admin": is_admin
+                "is_admin": "Admin" if is_admin == 1 else "User"
             }
             QMessageBox.information(self, "Welcome", f"Welcome, {user_name}!")
             # Load the user's data (e.g., songs owned by this user) and navigate to the profile page.
             self.show_profile_page()
-
+#
     def save_song(self):
         artist = self.ui.artist_in.text().strip()
         album = self.ui.album_in.text().strip()

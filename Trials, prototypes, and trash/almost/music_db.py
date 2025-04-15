@@ -90,3 +90,5 @@ class MusicManagementDB:
         query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != ''"
         cursor = self.conn.execute(query)
         return [row[0] for row in cursor.fetchall()]
+
+
