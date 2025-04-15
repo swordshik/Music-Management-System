@@ -14,7 +14,7 @@ class MusicApp(QMainWindow):
         self.db = MusicManagementDB()
         self.current_song_id = None  # For editing operations
         self.setup_connections()
-        self.ui.tabWidget.setCurrentIndex(1)  # Start with View List page
+        self.ui.tabWidget.setCurrentIndex(0)  # Start with View List page
         self.load_table()
 
     def setup_connections(self):
@@ -65,11 +65,12 @@ class MusicApp(QMainWindow):
 
     def show_profile_page(self):
         self.ui.tabWidget.setCurrentIndex(5)
-        self.load_table()
+        self.user_table()
         user_status = self.current_user["is_admin"]
         user_name = self.current_user["name"]
         self.ui.user_label.setText(f"Welcome, {user_name}!")
         self.ui.status_label.setText(f'Your status is {user_status}')
+        self.ui.num_label.setText(f'No. of songs added: {self.db.count(self.current_user["id"])}')
 
     def clear_add_fields(self):
         self.ui.artist_in.clear()
@@ -159,6 +160,15 @@ class MusicApp(QMainWindow):
         self.ui.name_in.clear()
         self.ui.email_in.clear()
         self.ui.password_in.clear()
+
+    def user_table(self):
+        songs = self.db.get_user_songs(self.current_user["id"])
+        self.ui.profile_table.setRowCount(0)
+        for row_data in songs:
+            row = self.ui.profile_table.rowCount()
+            self.ui.profile_table.insertRow(row)
+            for col, data in enumerate(row_data):
+                self.ui.profile_table.setItem(row, col, QTableWidgetItem(str(data)))
 
 # Log page
     def log(self):

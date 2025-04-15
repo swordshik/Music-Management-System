@@ -63,6 +63,12 @@ class MusicManagementDB:
         cursor = self.conn.execute(query)
         return cursor.fetchall()
 
+    def get_user_songs(self, user_id):
+        query = "SELECT artist, album, song, genre, year FROM songs WHERE user_id = ?"
+        cursor = self.conn.execute(query, (user_id,))
+        print("I found")
+        return cursor.fetchall()
+
     def search_song(self, song):
         query = "SELECT * FROM songs WHERE song = ?"
         cursor = self.conn.execute(query, (song,))
@@ -88,3 +94,12 @@ class MusicManagementDB:
         query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != ''"
         cursor = self.conn.execute(query)
         return [row[0] for row in cursor.fetchall()]
+
+    def count(self, user_id):
+        if user_id<0:
+            pass
+
+        else:
+            query = "SELECT * FROM songs WHERE user_id = ?"
+            cursor = self.conn.execute(query, (user_id,))
+            return len(cursor.fetchall())
