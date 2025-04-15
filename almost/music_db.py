@@ -1,7 +1,7 @@
 import sqlite3
 
 class MusicManagementDB:
-    def __init__(self, db_name="music_management_database.db"):
+    def __init__(self, db_name="music_database.db"):
         self.db_name = db_name
         self.conn = sqlite3.connect(self.db_name)
         self.create_tables()
@@ -9,7 +9,7 @@ class MusicManagementDB:
     def create_tables(self):
         user_query = """
         CREATE TABLE IF NOT EXISTS user_table (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
@@ -18,7 +18,7 @@ class MusicManagementDB:
         """
         song_query = """
         CREATE TABLE IF NOT EXISTS songs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            song_id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
             artist TEXT NOT NULL,
             album TEXT NOT NULL,
@@ -44,7 +44,7 @@ class MusicManagementDB:
 
     def get_user(self, email, password):
         # In a production app, you would verify a hashed password.
-        query = "SELECT id, name, email, is_admin FROM user_table WHERE email = ? AND password = ?"
+        query = "SELECT user_id, name, email, is_admin FROM user_table WHERE email = ? AND password = ?"
         cursor = self.conn.execute(query, (email, password))
         return cursor.fetchone()
 
@@ -63,23 +63,20 @@ class MusicManagementDB:
         cursor = self.conn.execute(query)
         return cursor.fetchall()
 
-    def search_song(self, song_name):
+    def search_song(self, song):
         query = "SELECT * FROM songs WHERE song = ?"
-        cursor = self.conn.execute(query, (song_name,))
+        cursor = self.conn.execute(query, (song,))
         return cursor.fetchone()
 
     def update_song(self, song_id, artist, album, song, genre, year, lyrics):
-        query = "UPDATE songs SET artist=?, album=?, song=?, genre=?, year=?, lyrics=? WHERE id=?"
+        query = "UPDATE songs SET artist=?, album=?, song=?, genre=?, year=?, lyrics=? WHERE song_id=?"
         self.conn.execute(query, (artist, album, song, genre, year, lyrics, song_id))
         self.conn.commit()
 
     def delete_song(self, song_id):
-        query = "DELETE FROM songs WHERE id=?"
+        query = "DELETE FROM songs WHERE song_id=?"
         self.conn.execute(query, (song_id,))
         self.conn.commit()
-
-    def close(self):
-        self.conn.close()
 
     def get_unique_artists(self):
         query = "SELECT DISTINCT artist FROM songs"

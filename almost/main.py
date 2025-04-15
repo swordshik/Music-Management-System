@@ -30,8 +30,6 @@ class MusicApp(QMainWindow):
         # Buttons
         self.ui.saveB_1.clicked.connect(self.save_song)
 
-        self.ui.enterB.clicked.connect(self.validate_login)
-
         self.ui.searchB.clicked.connect(self.search_song)
         self.ui.saveB_2.clicked.connect(self.update_song)
         self.ui.deleteB.clicked.connect(self.delete_song)
@@ -67,8 +65,11 @@ class MusicApp(QMainWindow):
 
     def show_profile_page(self):
         self.ui.tabWidget.setCurrentIndex(5)
-        self.load_table() # change
-
+        self.load_table()
+        user_status = self.current_user["is_admin"]
+        user_name = self.current_user["name"]
+        self.ui.user_label.setText(f"Welcome, {user_name}!")
+        self.ui.status_label.setText(f'Your status is {user_status}')
 
     def clear_add_fields(self):
         self.ui.artist_in.clear()
@@ -90,7 +91,7 @@ class MusicApp(QMainWindow):
 
     #Buttons def
 
-#playlist
+#playlist page
     def populate_filters(self):
         # Get unique artists and years from database
         artists = self.db.get_unique_artists()
@@ -142,18 +143,65 @@ class MusicApp(QMainWindow):
             self.ui.song_table.insertRow(row)
             for col, data in enumerate(row_data):
                 self.ui.song_table.setItem(row, col, QTableWidgetItem(str(data)))
-#
+# Profile page
     def edit_photo(self):
         pass
     def remove(self):
         pass
     def log_out(self):
-        pass
+        self.clear_log_fields()
+        self.show_log_page()
+
     def delete_account(self):
         pass
-    def log(self):
-        pass
 
+    def clear_log_fields(self):
+        self.ui.name_in.clear()
+        self.ui.email_in.clear()
+        self.ui.password_in.clear()
+
+# Log page
+    def log(self):
+        name = self.ui.name_in.text().strip()
+        email = self.ui.email_in.text().strip()
+        password = self.ui.password_in.text().strip()
+
+        if not name or not email or not password:
+            QMessageBox.warning(self, "Input Error", "Please fill out all login fields.")
+            return
+
+        # First, try to get the user from the DB.
+        user = self.db.get_user(email, password)
+        if user is None:
+            # User not found; prompt to create a new account.
+            reply = QMessageBox.question(
+                self,
+                "User Not Found",
+                "User not found. Would you like to create a new account?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
+            if reply == QMessageBox.StandardButton.Yes:
+                created = self.db.create_user(name, email, password)
+                if created:
+                    QMessageBox.information(self, "Account Created",
+                                            "Your account has been created. Please log in again.")
+                else:
+                    QMessageBox.warning(self, "Error", "An account with this email already exists.")
+            # If the user chooses No or account creation fails, simply return.
+            return
+        else:
+            # User exists. If it's an admin, we set special behavior in the profile page.
+            user_id, user_name, user_email, is_admin = user
+            self.current_user = {
+                "id": user_id,
+                "name": user_name,
+                "email": user_email,
+                "is_admin": "Admin" if is_admin == 1 else "User"
+            }
+            QMessageBox.information(self, "Welcome", f"Welcome, {user_name}!")
+            # Load the user's data (e.g., songs owned by this user) and navigate to the profile page.
+            self.show_profile_page()
+#
     def save_song(self):
         artist = self.ui.artist_in.text().strip()
         album = self.ui.album_in.text().strip()
@@ -164,7 +212,7 @@ class MusicApp(QMainWindow):
         if not artist or not album or not song:
             QMessageBox.warning(self, "Input Error", "Please fill in Artist, Album, and Song fields.")
             return
-        self.db.add_song(artist, album, song, genre, year, lyrics)
+        self.db.add_song(self.current_user["id"], artist, album, song, genre, year, lyrics)
         QMessageBox.information(self, "Success", "Song added successfully!")
         self.clear_add_fields()
 
@@ -226,23 +274,6 @@ class MusicApp(QMainWindow):
     def closeEvent(self, event):
         self.db.close()
         event.accept()
-
-    def validate_login(self):
-        username = self.ui.username_in.text().strip()
-        email = self.ui.email_in.text().strip()
-        password = self.ui.password_in.text().strip()
-        if not username or not password or not email:
-            QMessageBox.warning(self, "Input Error", "Please fill in both username and password.")
-            return
-        if self.validate_user(username, password):
-            QMessageBox.information(self, "Login Success", "Welcome!")
-            self.show_view_page()
-        else:
-            QMessageBox.warning(self, "Login Failed", "Invalid username or password.")
-
-    def validate_user(self, username, password):
-        
-        return username == "admin" and password == "admin"
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
