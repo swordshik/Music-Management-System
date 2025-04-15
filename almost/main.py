@@ -3,18 +3,40 @@ from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
 from music_ui import Ui_MainWindow
 from music_db import MusicManagementDB
+from PyQt6.QtWidgets import QColorDialog
+from PyQt6.QtCore import QSettings
+from PyQt6 import QtGui
+import matplotlib.pyplot as plt
+from collections import Counter
+import re
+from PyQt6.QtCore import QPropertyAnimation, QVariantAnimation, pyqtProperty
+from PyQt6.QtGui import QColor
+
 
 class MusicApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.settings = QSettings("YourApp", "MusicManagementSystem")
+        self.load_last_theme()  # ✅ must be here
         self.ui.tabWidget.tabBar().hide()
         self.db = MusicManagementDB()
         self.current_song_id = None
         self.setup_connections()
+        self.setup_shortcuts()
         self.ui.tabWidget.setCurrentIndex(0)
         self.load_table()
+
+    def setup_shortcuts(self):
+        shortcut_dark = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Shift+D"), self)
+        shortcut_dark.activated.connect(lambda: self.apply_theme("dark"))
+
+        shortcut_light = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Shift+L"), self)
+        shortcut_light.activated.connect(lambda: self.apply_theme("light"))
+
+        shortcut_default = QtGui.QShortcut(QtGui.QKeySequence('Ctrl+Shift+B'), self)
+        shortcut_default.activated.connect(lambda: self.apply_theme('default'))
 
     def setup_connections(self):
 
@@ -44,6 +66,195 @@ class MusicApp(QMainWindow):
         self.ui.delete_acB.clicked.connect(self.delete_account)
 
         self.ui.enterB.clicked.connect(self.log)
+
+        # menu bar
+        self.ui.actionAbout.triggered.connect(self.show_about_dialog)
+        self.ui.actionHelp.triggered.connect(self.show_help_dialog)
+        self.ui.actionExit.triggered.connect(self.close_app)
+
+        # bg
+        self.ui.actionDefault.triggered.connect(lambda: self.apply_theme("default"))
+        self.ui.actionGlass.triggered.connect(lambda: self.apply_theme("glass"))
+        self.ui.actionSunset.triggered.connect(lambda: self.apply_theme("sunset"))
+        self.ui.actionSimple.triggered.connect(lambda: self.apply_theme("simple"))
+        self.ui.actionDark.triggered.connect(lambda: self.apply_theme("dark"))
+        self.ui.actionLight.triggered.connect(lambda: self.apply_theme("light"))
+        self.ui.actionCoffee.triggered.connect(lambda: self.apply_theme("coffee"))
+        self.ui.actionCustom.triggered.connect(self.set_custom_theme)
+
+
+        # view
+        self.ui.view_filter_button.clicked.connect(self.apply_view_filters)
+
+        self.ui.viewLyricsB.clicked.connect(self.view_lyrics_popup)
+        #prof
+        self.ui.statsB.clicked.connect(self.show_stats_popup)
+
+        self.ui.password_in.textChanged.connect(self.check_password_strength)
+
+
+
+    def check_password_strength(self):
+        password = self.ui.password_in.text()
+        strength = "Strength: "
+
+        if len(password) < 6:
+            level = "Weak"
+            color = "red"
+        elif re.search(r'[A-Z]', password) and re.search(r'\d', password) and len(password) >= 8:
+            level = "Strong"
+            color = "#66CDAA"
+        else:
+            level = "Medium"
+            color = "orange"
+
+        self.ui.password_strength.setText(f"{strength}{level}")
+        self.ui.password_strength.setStyleSheet(f"color: {color};")
+
+    # lyrics
+    def view_lyrics_popup(self):
+        if not self.current_song_id:
+            QMessageBox.warning(self, "No Song", "Please search for a song first.")
+            return
+
+        # Get lyrics
+        song = self.db.search_song(self.ui.search_in.text().strip())
+        if song and song[7]:  # lyrics are in index 7
+            lyrics_text = song[7]
+        else:
+            lyrics_text = "No lyrics found."
+
+        # Create popup window
+        popup = QtWidgets.QDialog(self)
+        popup.setWindowTitle("Lyrics Viewer")
+        popup.setMinimumSize(400, 300)
+
+        layout = QtWidgets.QVBoxLayout()
+
+        text_area = QtWidgets.QPlainTextEdit()
+        text_area.setPlainText(lyrics_text)
+        text_area.setReadOnly(True)
+        layout.addWidget(text_area)
+
+        popup.setLayout(layout)
+        popup.exec()
+
+    #bg
+    def animate_label_bg(self, label, start_color: str, end_color: str, duration=400):
+        animation = QVariantAnimation(self)
+        animation.setDuration(duration)
+        animation.setStartValue(QColor(start_color))
+        animation.setEndValue(QColor(end_color))
+
+        def on_value_changed(value):
+            label.setStyleSheet(f"background-color: {value.name()}; border-radius: 5px;")
+
+        animation.valueChanged.connect(on_value_changed)
+        animation.start()
+
+    def load_last_theme(self):
+        theme_name = self.settings.value("theme_name", "default")
+        if theme_name == "custom":
+            colors = self.settings.value("custom_colors", [])
+            if colors and isinstance(colors, list) and len(colors) == 3:
+                self.set_label_colors(colors)
+        else:
+            self.apply_theme(theme_name)
+
+    def apply_theme(self, theme_name):
+        themes = {
+            "default": ["#0A1828", "#178582", "#6C757D"],
+            "simple": ["#f0f0f0", "#e0e0e0", "#d0d0d0"],
+            "dark": ["#2b2b2b", "#3c3c3c", "#4d4d4d"],
+            "light": ["#ffffff", "#eeeeee", "#dddddd"],
+            "coffee": ["#cba987", "#a67c52", "#6f4e37"],
+            "glass": ["#e0f7fa", "#b2ebf2", "#80deea"],
+            "sunset": ["#ffccbc", "#ffab91", "#ff8a65"]
+        }
+
+        if theme_name in themes:
+            self.set_label_colors(themes[theme_name])
+            self.settings.setValue("theme_name", theme_name)  # ✅ save selected theme
+
+    def set_label_colors(self, color_list):
+        if len(color_list) != 3:
+            return
+
+        color1, color2, color3 = color_list
+
+        # Animate bg_body
+        if hasattr(self.ui, "bg_body"):
+            current_style = self.ui.bg_body.palette().window().color().name()
+            self.animate_label_bg(self.ui.bg_body, current_style, color1)
+
+        # Animate bg_head
+        if hasattr(self.ui, "bg_head"):
+            current_style = self.ui.bg_head.palette().window().color().name()
+            self.animate_label_bg(self.ui.bg_head, current_style, color2)
+
+        # Animate all other bg labels
+        for attr in dir(self.ui):
+            if attr.startswith("bg") and attr not in ["bg_body", "bg_head"]:
+                label = getattr(self.ui, attr)
+                if isinstance(label, QtWidgets.QLabel):
+                    current_style = label.palette().window().color().name()
+                    self.animate_label_bg(label, current_style, color3)
+
+    def set_custom_theme(self):
+        colors = []
+        for i in range(3):
+            color = QColorDialog.getColor(title=f"Pick Color {i + 1}", parent=self)
+            if color.isValid():
+                colors.append(color.name())
+
+        if len(colors) == 3:
+            self.set_label_colors(colors)
+            self.settings.setValue("theme_name", "custom")
+            self.settings.setValue("custom_colors", colors)
+
+# menu
+    def show_about_dialog(self):
+        QMessageBox.information(
+            self,
+            "About This Project",
+            "🎵 Music Management System 🎵\n\n"
+            "This app was developed as part of a university OOP coursework project. "
+            "It allows users to manage songs, view playlists, upload profile photos, "
+            "and securely manage their accounts using hashed passwords.\n\n"
+            "Made with ❤️ using Python & PyQt6."
+        )
+
+    def show_help_dialog(self):
+        QMessageBox.information(
+            self,
+            "Help & Instructions",
+            "🎧 How to Use the Music Management System\n\n"
+            "🔐 Login / Register:\n"
+            "- Enter your name, email, and password to log in or create an account.\n\n"
+            "🎵 Add Songs:\n"
+            "- Use the 'Add' tab to enter song details and click Save.\n\n"
+            "🔍 Edit/Delete Songs:\n"
+            "- Use the 'Edit' tab to search, update, or delete songs.\n\n"
+            "👤 Profile:\n"
+            "- Users can view their songs.\n"
+            "- Admins can view all users.\n\n"
+            "🖼️ Profile Photo:\n"
+            "- Click 'Edit Photo' to upload your picture.\n\n"
+            "🔁 Forgot Password:\n"
+            "- Reset your password using your email and user ID.\n\n"
+            "Need more help? Contact support@example.com"
+        )
+
+    def close_app(self):
+        reply = QMessageBox.question(
+            self,
+            "Exit Application",
+            "Are you sure you want to exit?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if reply == QMessageBox.StandardButton.Yes:
+            self.close()
+
 #
     def handle_profile_selection(self):
         selected_items = self.ui.profile_table.selectedItems()
@@ -104,7 +315,7 @@ class MusicApp(QMainWindow):
         self.ui.lyrics_1.clear()
 
     def clear_edit_fields(self):
-        self.ui.song_search.clear()
+        self.ui.search_in.clear()
         self.ui.artist_edit.clear()
         self.ui.album_edit.clear()
         self.ui.song_edit.clear()
@@ -113,8 +324,30 @@ class MusicApp(QMainWindow):
         self.ui.lyrics_2.clear()
         self.current_song_id = None
 
+#view page
+    def show_view_page(self):
+        self.ui.tabWidget.setCurrentIndex(1)
+        self.load_table()
 
-#playlist page
+        # Populate filters
+        self.ui.view_artist_filter.clear()
+        self.ui.view_genre_filter.clear()
+        self.ui.view_year_filter.clear()
+
+        self.ui.view_artist_filter.addItem("All Artists")
+        self.ui.view_genre_filter.addItem("All Genre")
+        self.ui.view_year_filter.addItem("All Year")
+
+        for artist in self.db.get_unique_artists():
+            self.ui.view_artist_filter.addItem(artist)
+
+        for genre in ["Classical", "Pop", "Rock", "Hip-hop", "Jazz", "Electronic", "Other"]:
+            self.ui.view_genre_filter.addItem(genre)
+
+        for year in self.db.get_unique_years():
+            self.ui.view_year_filter.addItem(year)
+
+    #playlist page
     def populate_filters(self):
         artists = self.db.get_unique_artists()
         years = self.db.get_unique_years()
@@ -157,9 +390,69 @@ class MusicApp(QMainWindow):
             self.ui.song_table.insertRow(row)
             for col, data in enumerate(row_data):
                 self.ui.song_table.setItem(row, col, QTableWidgetItem(str(data)))
+
+    def apply_view_filters(self):
+        artist = self.ui.view_artist_filter.currentText()
+        genre = self.ui.view_genre_filter.currentText()
+        year = self.ui.view_year_filter.currentText()
+
+        query = "SELECT artist, album, song, genre, year FROM songs WHERE 1=1"
+        params = []
+
+        if artist != "All Artists":
+            query += " AND artist = ?"
+            params.append(artist)
+
+        if genre != "All Genre":
+            query += " AND genre = ?"
+            params.append(genre)
+
+        if year != "All Year":
+            query += " AND year = ?"
+            params.append(year)
+
+        results = self.db.conn.execute(query, params).fetchall()
+
+        self.ui.list_table.setRowCount(0)
+        for row_data in results:
+            row = self.ui.list_table.rowCount()
+            self.ui.list_table.insertRow(row)
+            for col, data in enumerate(row_data):
+                self.ui.list_table.setItem(row, col, QTableWidgetItem(str(data)))
+
 # Profile page
     def edit_photo(self):
         pass
+
+    def show_stats_popup(self):
+        user_status = self.current_user["is_admin"]
+        user_id = self.current_user["id"]
+
+        if user_status == "Admin":
+            query = "SELECT genre FROM songs"
+            cursor = self.db.conn.execute(query)
+        else:
+            query = "SELECT genre FROM songs WHERE user_id = ?"
+            cursor = self.db.conn.execute(query, (user_id,))
+
+        genres = [row[0] for row in cursor.fetchall() if row[0]]
+
+        if not genres:
+            QMessageBox.information(self, "No Data", "No songs found.")
+            return
+
+        genre_count = Counter(genres)
+
+        # Bar Chart
+        fig, ax = plt.subplots(figsize=(7, 5))
+        ax.bar(genre_count.keys(), genre_count.values(), color='skyblue')
+        ax.set_title("Songs by Genre")
+        ax.set_xlabel("Genre")
+        ax.set_ylabel("Count")
+        ax.tick_params(axis='x', rotation=45)
+
+        plt.tight_layout()
+        plt.show()
 
     def remove(self):
         if not hasattr(self, 'current_user'):
@@ -367,7 +660,7 @@ class MusicApp(QMainWindow):
             self.show_log_page()
             return
 
-        song_name = self.ui.song_search.text().strip()
+        song_name = self.ui.search_in.text().strip()
         if not song_name:
             QMessageBox.warning(self, "Input Error", "Enter a song name to search.")
             return

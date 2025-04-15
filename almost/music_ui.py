@@ -138,27 +138,36 @@ class Ui_MainWindow(object):
         self.bg_log.setObjectName("bg_log")
         # Login button for submitting the login/sign-up form.
 
+        self.password_in = QtWidgets.QLineEdit(parent=self.log_page)
+        self.password_in.setGeometry(QtCore.QRect(290, 230, 171, 31))
+        self.password_in.setObjectName("password_in")
+
         self.forgotB = QtWidgets.QPushButton(parent=self.log_page)
-        self.forgotB.setGeometry(QtCore.QRect(380, 270, 81, 31))
+        self.forgotB.setGeometry(QtCore.QRect(330, 270, 131, 31))
         self.forgotB.setStyleSheet("    QPushButton {\n"
                                   "    background-color: rgb(255, 255, 255);\n"
                                   "        border-radius: 10px;\n"
                                   "        padding: 5px;\n"
                                   "    }")
-        self.forgotB.setText("Forgot?")
+        self.forgotB.setText("Forgot Password?")
         self.forgotB.setObjectName("forgotB")
 
         self.enterB = QtWidgets.QPushButton(parent=self.log_page)
-        self.enterB.setGeometry(QtCore.QRect(290, 270, 81, 31))
+        self.enterB.setGeometry(QtCore.QRect(180, 270, 131, 31))
         self.enterB.setStyleSheet("    QPushButton {\n"
                                 "    background-color: rgb(255, 255, 255);\n"
                                 "        border-radius: 10px;\n"
                                 "        padding: 5px;\n"
                                 "    }")
         self.enterB.setObjectName("enterB")
-        self.password_in = QtWidgets.QLineEdit(parent=self.log_page)
-        self.password_in.setGeometry(QtCore.QRect(290, 230, 171, 31))
-        self.password_in.setObjectName("password_in")
+
+        self.password_strength = QtWidgets.QLabel(parent=self.log_page)
+        self.password_strength.setGeometry(QtCore.QRect(480, 230, 131, 31))
+        self.password_strength.setStyleSheet("color: gray;")
+        self.password_strength.setText("Strength: -")
+        self.password_strength.setObjectName("password_strength")
+
+
         self.bg_log.raise_()
         self.label.raise_()
         self.label_2.raise_()
@@ -166,8 +175,9 @@ class Ui_MainWindow(object):
         self.label_18.raise_()
         self.name_in.raise_()
         self.email_in.raise_()
-        self.enterB.raise_()
         self.password_in.raise_()
+        self.enterB.raise_()
+        self.password_strength.raise_()
         self.forgotB.raise_()
         self.tabWidget.addTab(self.log_page, "")
 
@@ -212,34 +222,68 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         item.setFont(font)
         self.list_table.setHorizontalHeaderItem(4, item)
-        self.bg2 = QtWidgets.QLabel(parent=self.view_page)
-        self.bg2.setGeometry(QtCore.QRect(-30, -70, 721, 741))
-        self.bg2.setStyleSheet("\n"
+        self.bg_view = QtWidgets.QLabel(parent=self.view_page)
+        self.bg_view.setGeometry(QtCore.QRect(-30, -70, 721, 741))
+        self.bg_view.setStyleSheet("\n"
                                "background-color: #6C757D ;\n"
                                "color: #2C3E50;\n"
                                "")
-        self.bg2.setText("")
-        self.bg2.setPixmap(QtGui.QPixmap(":/newPrefix/9a707a7e883d3dd10376a3e1bf2ed4e8.jpg"))
-        self.bg2.setObjectName("bg2")
-        self.bg2.raise_()
+        self.bg_view.setText("")
+        self.bg_view.setPixmap(QtGui.QPixmap(":/newPrefix/9a707a7e883d3dd10376a3e1bf2ed4e8.jpg"))
+        self.bg_view.setObjectName("bg_view")
+        self.bg_view.raise_()
         self.list_table.raise_()
+
+        # Filter: Artist
+        self.view_artist_filter = QtWidgets.QComboBox(parent=self.view_page)
+        self.view_artist_filter.setGeometry(QtCore.QRect(80, 10, 100, 30))
+        self.view_artist_filter.setObjectName("view_artist_filter")
+
+        # Filter: Genre
+        self.view_genre_filter = QtWidgets.QComboBox(parent=self.view_page)
+        self.view_genre_filter.setGeometry(QtCore.QRect(200, 10, 100, 30))
+        self.view_genre_filter.setObjectName("view_genre_filter")
+
+        # Filter: Year
+        self.view_year_filter = QtWidgets.QComboBox(parent=self.view_page)
+        self.view_year_filter.setGeometry(QtCore.QRect(320, 10, 100, 30))
+        self.view_year_filter.setObjectName("view_year_filter")
+
+        # Button: Apply Filter
+        self.view_filter_button = QtWidgets.QPushButton(parent=self.view_page)
+        self.view_filter_button.setGeometry(QtCore.QRect(440, 10, 100, 30))
+        self.view_filter_button.setText("Apply Filter")
+        self.view_filter_button.setObjectName("view_filter_button")
+
+
         self.tabWidget.addTab(self.view_page, "")
 
         # --- Third Tab: Add Song Page ---
         self.add_page = QtWidgets.QWidget()
         self.add_page.setObjectName("add_page")
+
+        self.artist_in = QtWidgets.QLineEdit(parent=self.add_page)
+        self.artist_in.setGeometry(QtCore.QRect(120, 70, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.artist_in.setFont(font)
+        self.artist_in.setObjectName("artist_in")
+
         self.album_in = QtWidgets.QLineEdit(parent=self.add_page)
         self.album_in.setGeometry(QtCore.QRect(120, 110, 101, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.album_in.setFont(font)
         self.album_in.setObjectName("album_in")
-        self.year_in = QtWidgets.QLineEdit(parent=self.add_page)
-        self.year_in.setGeometry(QtCore.QRect(120, 230, 101, 31))
+
+
+        self.song_in = QtWidgets.QLineEdit(parent=self.add_page)
+        self.song_in.setGeometry(QtCore.QRect(120, 150, 101, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
-        self.year_in.setFont(font)
-        self.year_in.setObjectName("year_in")
+        self.song_in.setFont(font)
+        self.song_in.setObjectName("song_in")
+
         self.box_add = QtWidgets.QComboBox(parent=self.add_page)
         self.box_add.setGeometry(QtCore.QRect(120, 190, 101, 31))
         font = QtGui.QFont()
@@ -250,18 +294,13 @@ class Ui_MainWindow(object):
         for n in range(30):
             self.box_add.addItem('')
 
-        self.artist_in = QtWidgets.QLineEdit(parent=self.add_page)
-        self.artist_in.setGeometry(QtCore.QRect(120, 70, 101, 31))
+        self.year_in = QtWidgets.QLineEdit(parent=self.add_page)
+        self.year_in.setGeometry(QtCore.QRect(120, 230, 101, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
-        self.artist_in.setFont(font)
-        self.artist_in.setObjectName("artist_in")
-        self.song_in = QtWidgets.QLineEdit(parent=self.add_page)
-        self.song_in.setGeometry(QtCore.QRect(120, 150, 101, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.song_in.setFont(font)
-        self.song_in.setObjectName("song_in")
+        self.year_in.setFont(font)
+        self.year_in.setObjectName("year_in")
+
         self.lyrics_1 = QtWidgets.QPlainTextEdit(parent=self.add_page)
         self.lyrics_1.setGeometry(QtCore.QRect(280, 110, 361, 231))
         font = QtGui.QFont()
@@ -273,6 +312,7 @@ class Ui_MainWindow(object):
                                     "        padding: 5px;\n"
                                     "    }")
         self.lyrics_1.setObjectName("lyrics_1")
+
         self.saveB_1 = QtWidgets.QPushButton(parent=self.add_page)
         self.saveB_1.setGeometry(QtCore.QRect(120, 310, 101, 31))
         font = QtGui.QFont()
@@ -285,6 +325,7 @@ class Ui_MainWindow(object):
                                    "        padding: 5px;\n"
                                    "    }")
         self.saveB_1.setObjectName("saveB_1")
+
         self.label_4 = QtWidgets.QLabel(parent=self.add_page)
         self.label_4.setGeometry(QtCore.QRect(40, 150, 61, 31))
         font = QtGui.QFont()
@@ -399,17 +440,14 @@ class Ui_MainWindow(object):
         # --- Fourth Tab: Edit Song Page ---
         self.edit_page = QtWidgets.QWidget()
         self.edit_page.setObjectName("edit_page")
-        self.lyrics_2 = QtWidgets.QPlainTextEdit(parent=self.edit_page)
-        self.lyrics_2.setGeometry(QtCore.QRect(280, 110, 351, 231))
+
+        self.search_in = QtWidgets.QLineEdit(parent=self.edit_page)
+        self.search_in.setGeometry(QtCore.QRect(360, 30, 151, 31))
         font = QtGui.QFont()
-        font.setPointSize(12)
-        self.lyrics_2.setFont(font)
-        self.lyrics_2.setStyleSheet("    QPlainTextEdit {\n"
-                                    "    background-color: rgb(255, 255, 255);\n"
-                                    "        border-radius: 10px;\n"
-                                    "        padding: 5px;\n"
-                                    "    }")
-        self.lyrics_2.setObjectName("lyrics_2")
+        font.setPointSize(11)
+        self.search_in.setFont(font)
+        self.search_in.setObjectName("search_in")
+
         self.searchB = QtWidgets.QPushButton(parent=self.edit_page)
         self.searchB.setGeometry(QtCore.QRect(550, 30, 81, 31))
         font = QtGui.QFont()
@@ -421,6 +459,58 @@ class Ui_MainWindow(object):
                                    "        padding: 5px;\n"
                                    "    }")
         self.searchB.setObjectName("searchB")
+
+        self.artist_edit = QtWidgets.QLineEdit(parent=self.edit_page)
+        self.artist_edit.setGeometry(QtCore.QRect(120, 70, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.artist_edit.setFont(font)
+        self.artist_edit.setObjectName("artist_edit")
+
+        self.album_edit = QtWidgets.QLineEdit(parent=self.edit_page)
+        self.album_edit.setGeometry(QtCore.QRect(120, 110, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.album_edit.setFont(font)
+        self.album_edit.setObjectName("album_edit")
+
+        self.song_edit = QtWidgets.QLineEdit(parent=self.edit_page)
+        self.song_edit.setGeometry(QtCore.QRect(120, 150, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.song_edit.setFont(font)
+        self.song_edit.setObjectName("song_edit")
+
+        self.box_edit = QtWidgets.QComboBox(parent=self.edit_page)
+        self.box_edit.setGeometry(QtCore.QRect(120, 190, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        self.box_edit.setFont(font)
+        self.box_edit.setObjectName("box_edit")
+        for n in range(30):
+            self.box_edit.addItem('')
+
+        self.year_edit = QtWidgets.QLineEdit(parent=self.edit_page)
+        self.year_edit.setGeometry(QtCore.QRect(120, 230, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.year_edit.setFont(font)
+        self.year_edit.setObjectName("year_edit")
+
+        self.saveB_2 = QtWidgets.QPushButton(parent=self.edit_page)
+        self.saveB_2.setGeometry(QtCore.QRect(40, 310, 81, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        self.saveB_2.setFont(font)
+        self.saveB_2.setStyleSheet("    QPushButton {\n"
+                                   "    background-color: rgb(255, 255, 255);\n"
+                                   "        border-radius: 10px;\n"
+                                   "        padding: 5px;\n"
+                                   "    }")
+        self.saveB_2.setObjectName("saveB_2")
+
         self.deleteB = QtWidgets.QPushButton(parent=self.edit_page)
         self.deleteB.setGeometry(QtCore.QRect(130, 310, 91, 31))
         font = QtGui.QFont()
@@ -433,6 +523,30 @@ class Ui_MainWindow(object):
                                    "        padding: 5px;\n"
                                    "    }")
         self.deleteB.setObjectName("deleteB")
+
+        self.viewLyricsB = QtWidgets.QPushButton(parent=self.edit_page)
+        self.viewLyricsB.setGeometry(QtCore.QRect(360, 70, 151, 31))
+        self.viewLyricsB.setFont(font)
+        self.viewLyricsB.setStyleSheet("    QPushButton {\n"
+                                       "    background-color: rgb(255, 255, 255);\n"
+                                       "        border-radius: 10px;\n"
+                                       "        padding: 5px;\n"
+                                       "    }")
+        self.viewLyricsB.setText("View Lyrics")
+        self.viewLyricsB.setObjectName("viewLyricsB")
+
+        self.lyrics_2 = QtWidgets.QPlainTextEdit(parent=self.edit_page)
+        self.lyrics_2.setGeometry(QtCore.QRect(280, 110, 351, 231))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lyrics_2.setFont(font)
+        self.lyrics_2.setStyleSheet("    QPlainTextEdit {\n"
+                                    "    background-color: rgb(255, 255, 255);\n"
+                                    "        border-radius: 10px;\n"
+                                    "        padding: 5px;\n"
+                                    "    }")
+        self.lyrics_2.setObjectName("lyrics_2")
+
         self.bg_edit = QtWidgets.QLabel(parent=self.edit_page)
         self.bg_edit.setGeometry(QtCore.QRect(-20, -130, 811, 691))
         self.bg_edit.setStyleSheet("background-color: #6C757D ;\n"
@@ -454,12 +568,6 @@ class Ui_MainWindow(object):
                                     "    }")
         self.label_1.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_1.setObjectName("label_1")
-        self.year_edit = QtWidgets.QLineEdit(parent=self.edit_page)
-        self.year_edit.setGeometry(QtCore.QRect(120, 230, 101, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.year_edit.setFont(font)
-        self.year_edit.setObjectName("year_edit")
         self.label_47 = QtWidgets.QLabel(parent=self.edit_page)
         self.label_47.setGeometry(QtCore.QRect(40, 230, 61, 31))
         font = QtGui.QFont()
@@ -488,22 +596,6 @@ class Ui_MainWindow(object):
                                     "    }")
         self.label_45.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_45.setObjectName("label_45")
-        self.box_edit = QtWidgets.QComboBox(parent=self.edit_page)
-        self.box_edit.setGeometry(QtCore.QRect(120, 190, 101, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(False)
-        self.box_edit.setFont(font)
-        self.box_edit.setObjectName("box_edit")
-        for n in range(30):
-            self.box_edit.addItem('')
-
-        self.song_edit = QtWidgets.QLineEdit(parent=self.edit_page)
-        self.song_edit.setGeometry(QtCore.QRect(120, 150, 101, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.song_edit.setFont(font)
-        self.song_edit.setObjectName("song_edit")
         self.label_46 = QtWidgets.QLabel(parent=self.edit_page)
         self.label_46.setGeometry(QtCore.QRect(40, 150, 61, 31))
         font = QtGui.QFont()
@@ -532,18 +624,6 @@ class Ui_MainWindow(object):
                                     "    }")
         self.label_48.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_48.setObjectName("label_48")
-        self.artist_edit = QtWidgets.QLineEdit(parent=self.edit_page)
-        self.artist_edit.setGeometry(QtCore.QRect(120, 70, 101, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.artist_edit.setFont(font)
-        self.artist_edit.setObjectName("artist_edit")
-        self.album_edit = QtWidgets.QLineEdit(parent=self.edit_page)
-        self.album_edit.setGeometry(QtCore.QRect(120, 110, 101, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.album_edit.setFont(font)
-        self.album_edit.setObjectName("album_edit")
         self.label_43 = QtWidgets.QLabel(parent=self.edit_page)
         self.label_43.setGeometry(QtCore.QRect(280, 70, 71, 31))
         font = QtGui.QFont()
@@ -558,18 +638,6 @@ class Ui_MainWindow(object):
                                     "    }")
         self.label_43.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_43.setObjectName("label_43")
-        self.saveB_2 = QtWidgets.QPushButton(parent=self.edit_page)
-        self.saveB_2.setGeometry(QtCore.QRect(40, 310, 81, 31))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        self.saveB_2.setFont(font)
-        self.saveB_2.setStyleSheet("    QPushButton {\n"
-                                   "    background-color: rgb(255, 255, 255);\n"
-                                   "        border-radius: 10px;\n"
-                                   "        padding: 5px;\n"
-                                   "    }")
-        self.saveB_2.setObjectName("saveB_2")
         self.label_49 = QtWidgets.QLabel(parent=self.edit_page)
         self.label_49.setGeometry(QtCore.QRect(280, 30, 61, 31))
         font = QtGui.QFont()
@@ -584,15 +652,13 @@ class Ui_MainWindow(object):
                                     "    }")
         self.label_49.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_49.setObjectName("label_49")
-        self.song_search = QtWidgets.QLineEdit(parent=self.edit_page)
-        self.song_search.setGeometry(QtCore.QRect(360, 30, 151, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.song_search.setFont(font)
-        self.song_search.setObjectName("song_search")
+
+
+
         self.bg_edit.raise_()
         self.lyrics_2.raise_()
         self.searchB.raise_()
+        self.viewLyricsB.raise_()
         self.deleteB.raise_()
         self.label_1.raise_()
         self.year_edit.raise_()
@@ -607,7 +673,7 @@ class Ui_MainWindow(object):
         self.label_43.raise_()
         self.saveB_2.raise_()
         self.label_49.raise_()
-        self.song_search.raise_()
+        self.search_in.raise_()
         self.tabWidget.addTab(self.edit_page, "")
 
         # --- Fifth Tab: Playlist Page ---
@@ -711,6 +777,18 @@ class Ui_MainWindow(object):
         # --- Sixth Tab: Profile Page ---
         self.profile_page = QtWidgets.QWidget()
         self.profile_page.setObjectName("profile_page")
+
+        self.statsB = QtWidgets.QPushButton(parent=self.profile_page)
+
+        self.statsB.setStyleSheet("    QPushButton {\n"
+                                   "    background-color: rgb(255, 255, 255);\n"
+                                   "        border-radius: 10px;\n"
+                                   "        padding: 5px;\n"
+                                   "    }")
+        self.statsB.setGeometry(QtCore.QRect(510, 80, 131, 31))
+        self.statsB.setText("View Stats")
+        self.statsB.setObjectName("statsB")
+
         self.user_label = QtWidgets.QLabel(parent=self.profile_page)
         self.user_label.setGeometry(QtCore.QRect(50, 30, 171, 31))
         self.user_label.setStyleSheet("    QLabel {\n"
@@ -795,18 +873,18 @@ class Ui_MainWindow(object):
                                       "        padding: 5px;\n"
                                       "    }")
         self.delete_acB.setObjectName("delete_acB")
-        self.edit_photo = QtWidgets.QLabel(parent=self.profile_page)
+        self.photo_label = QtWidgets.QLabel(parent=self.profile_page)
 
-        self.edit_photo.setGeometry(QtCore.QRect(390, 20, 91, 121))
-        self.edit_photo.setStyleSheet("    QLabel {\n"
+        self.photo_label.setGeometry(QtCore.QRect(390, 10, 91, 121))
+        self.photo_label.setStyleSheet("    QLabel {\n"
                                       "    background-color: rgb(255, 255, 255);\n"
                                       "        border-radius: 10px;\n"
                                       "        padding: 5px;\n"
                                       "    }")
-        self.edit_photo.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.edit_photo.setObjectName("edit_photo")
+        self.photo_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.photo_label.setObjectName("photo_label")
         self.edit_photoB = QtWidgets.QPushButton(parent=self.profile_page)
-        self.edit_photoB.setGeometry(QtCore.QRect(510, 20, 131, 31))
+        self.edit_photoB.setGeometry(QtCore.QRect(510, 30, 131, 31))
         self.edit_photoB.setStyleSheet("    QPushButton {\n"
                                        "    background-color: rgb(255, 255, 255);\n"
                                        "        border-radius: 10px;\n"
@@ -825,10 +903,11 @@ class Ui_MainWindow(object):
         self.status_label.raise_()
         self.profile_table.raise_()
         self.num_label.raise_()
+        self.statsB.raise_()
         self.removeB.raise_()
         self.logoutB.raise_()
         self.delete_acB.raise_()
-        self.edit_photo.raise_()
+        self.photo_label.raise_()
         self.edit_photoB.raise_()
         self.tabWidget.addTab(self.profile_page, "")
 
@@ -879,21 +958,21 @@ class Ui_MainWindow(object):
                         QtGui.QIcon.State.Off)
         self.profileB.setIcon(icon4)
         self.profileB.setObjectName("profileB")
-        self.bg_win2 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.bg_win2.setGeometry(QtCore.QRect(-62, -30, 861, 101))
-        self.bg_win2.setStyleSheet("background-color: #178582  ;\n"
+        self.bg_head = QtWidgets.QLabel(parent=self.centralwidget)
+        self.bg_head.setGeometry(QtCore.QRect(-62, -30, 861, 101))
+        self.bg_head.setStyleSheet("background-color: #178582  ;\n"
                                    "color: #3D2C29;")
-        self.bg_win2.setText("")
-        self.bg_win2.setObjectName("bg_win2")
-        self.bg_win1 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.bg_win1.setGeometry(QtCore.QRect(-130, 40, 901, 861))
-        self.bg_win1.setAutoFillBackground(False)
-        self.bg_win1.setStyleSheet("background-color: #0A1828;\n"
+        self.bg_head.setText("")
+        self.bg_head.setObjectName("bg_head")
+        self.bg_body = QtWidgets.QLabel(parent=self.centralwidget)
+        self.bg_body.setGeometry(QtCore.QRect(-130, 40, 901, 861))
+        self.bg_body.setAutoFillBackground(False)
+        self.bg_body.setStyleSheet("background-color: #0A1828;\n"
                                    "color: #3D2C29;")
-        self.bg_win1.setText("")
-        self.bg_win1.setObjectName("bg_win1")
-        self.bg_win1.raise_()
-        self.bg_win2.raise_()
+        self.bg_body.setText("")
+        self.bg_body.setObjectName("bg_body")
+        self.bg_body.raise_()
+        self.bg_head.raise_()
         self.addB.raise_()
         self.viewB.raise_()
         self.editB.raise_()
@@ -907,48 +986,60 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 735, 22))
         self.menubar.setObjectName("menubar")
-        self.menuAbout = QtWidgets.QMenu(parent=self.menubar)
-        self.menuAbout.setObjectName("menuAbout")
-        self.menuExit = QtWidgets.QMenu(parent=self.menubar)
-        self.menuExit.setObjectName("menuExit")
+#
+        self.menuProject = QtWidgets.QMenu(parent=self.menubar)
+        self.menuProject.setObjectName("menuProject")
+
         self.menuBackground = QtWidgets.QMenu(parent=self.menubar)
         self.menuBackground.setObjectName("menuBackground")
-        self.menuCustom = QtWidgets.QMenu(parent=self.menuBackground)
-        self.menuCustom.setObjectName("menuCustom")
+
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
         # --- Creating Actions for the Menu ---
+        self.actionAbout = QtGui.QAction(parent=MainWindow)
+        self.actionAbout.setObjectName("actionAbout")
+        self.actionHelp = QtGui.QAction(parent=MainWindow)
+        self.actionHelp.setObjectName("actionHelp")
+        self.actionExit = QtGui.QAction(parent=MainWindow)
+        self.actionExit.setObjectName("actionExit")
+
         self.actionSimple = QtGui.QAction(parent=MainWindow)
         self.actionSimple.setObjectName("actionSimple")
-        self.actionsign_in = QtGui.QAction(parent=MainWindow)
-        self.actionsign_in.setObjectName("actionsign_in")
-        self.actionview = QtGui.QAction(parent=MainWindow)
-        self.actionview.setObjectName("actionview")
-        self.actionadd = QtGui.QAction(parent=MainWindow)
-        self.actionadd.setObjectName("actionadd")
-        self.actionedit = QtGui.QAction(parent=MainWindow)
-        self.actionedit.setObjectName("actionedit")
-        self.actionplaylist = QtGui.QAction(parent=MainWindow)
-        self.actionplaylist.setObjectName("actionplaylist")
-        self.actionprofile = QtGui.QAction(parent=MainWindow)
-        self.actionprofile.setObjectName("actionprofile")
+        self.actionDark = QtGui.QAction(parent=MainWindow)
+        self.actionDark.setObjectName("actionDark")
+        self.actionLight = QtGui.QAction(parent=MainWindow)
+        self.actionLight.setObjectName("actionLight")
+        self.actionCoffee = QtGui.QAction(parent=MainWindow)
+        self.actionCoffee.setObjectName("actionCoffee")
+        self.actionCustom = QtGui.QAction(parent=MainWindow)
+        self.actionCustom.setObjectName("actionCustom")
+        self.actionSunset = QtGui.QAction(parent=MainWindow)
+        self.actionSunset.setObjectName("actionSunset")
+        self.actionGlass = QtGui.QAction(parent=MainWindow)
+        self.actionGlass.setObjectName("actionGlass")
         self.actionDefault = QtGui.QAction(parent=MainWindow)
         self.actionDefault.setObjectName("actionDefault")
 
-        self.menuCustom.addAction(self.actionsign_in)
-        self.menuCustom.addAction(self.actionview)
-        self.menuCustom.addAction(self.actionadd)
-        self.menuCustom.addAction(self.actionedit)
-        self.menuCustom.addAction(self.actionplaylist)
-        self.menuCustom.addAction(self.actionprofile)
+
+
         self.menuBackground.addAction(self.actionDefault)
         self.menuBackground.addAction(self.actionSimple)
-        self.menuBackground.addAction(self.menuCustom.menuAction())
+        self.menuBackground.addAction(self.actionDark)
+        self.menuBackground.addAction(self.actionLight)
+        self.menuBackground.addAction(self.actionCoffee)
+        self.menuBackground.addAction(self.actionSunset)
+        self.menuBackground.addAction(self.actionGlass)
+        self.menuBackground.addAction(self.actionCustom)
+
+        self.menuProject.addAction(self.actionAbout)
+        self.menuProject.addAction(self.actionHelp)
+        self.menuProject.addAction(self.actionExit)
+
         self.menubar.addAction(self.menuBackground.menuAction())
-        self.menubar.addAction(self.menuAbout.menuAction())
-        self.menubar.addAction(self.menuExit.menuAction())
+        self.menubar.addAction(self.menuProject.menuAction())
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(5)
@@ -1044,24 +1135,28 @@ class Ui_MainWindow(object):
         self.removeB.setText(_translate("MainWindow", "Remove"))
         self.logoutB.setText(_translate("MainWindow", "Log Out"))
         self.delete_acB.setText(_translate("MainWindow", "Delete Account"))
-        self.edit_photo.setText(_translate("MainWindow", "Photo"))
+        self.photo_label.setText(_translate("MainWindow", "Photo"))
         self.edit_photoB.setText(_translate("MainWindow", "Edit Photo"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.profile_page), _translate("MainWindow", "Page"))
         self.signB.setText(_translate("MainWindow", "Log In"))
         self.playlistB.setText(_translate("MainWindow", " Playlist"))
         self.profileB.setText(_translate("MainWindow", " Profile"))
-        self.menuAbout.setTitle(_translate("MainWindow", "About"))
-        self.menuExit.setTitle(_translate("MainWindow", "Exit"))
+
+        self.menuProject.setTitle(_translate("MainWindow", "Project"))
+        self.actionAbout.setText(_translate("MainWindow", "About"))
+        self.actionHelp.setText(_translate("MainWindow", "Help"))
+        self.actionExit.setText(_translate("MainWindow", "Exit"))
+
         self.menuBackground.setTitle(_translate("MainWindow", "Background"))
-        self.menuCustom.setTitle(_translate("MainWindow", "Custom"))
-        self.actionSimple.setText(_translate("MainWindow", "Simple"))
-        self.actionsign_in.setText(_translate("MainWindow", "sign in"))
-        self.actionview.setText(_translate("MainWindow", "view"))
-        self.actionadd.setText(_translate("MainWindow", "add"))
-        self.actionedit.setText(_translate("MainWindow", "edit"))
-        self.actionplaylist.setText(_translate("MainWindow", "playlist"))
-        self.actionprofile.setText(_translate("MainWindow", "profile"))
         self.actionDefault.setText(_translate("MainWindow", "Default"))
+        self.actionSimple.setText(_translate("MainWindow", "Simple"))
+
+        self.actionDark.setText(_translate("MainWindow", "Dark"))
+        self.actionLight.setText(_translate("MainWindow", "Light"))
+        self.actionCoffee.setText(_translate("MainWindow", "Coffee"))
+        self.actionSunset.setText(_translate("MainWindow", "Sunset"))
+        self.actionGlass.setText(_translate("MainWindow", "Glass"))
+        self.actionCustom.setText(_translate("MainWindow", "Custom"))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
