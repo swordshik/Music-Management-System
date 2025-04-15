@@ -66,13 +66,16 @@ class MusicManagementDB:
     def get_user_songs(self, user_id):
         query = "SELECT artist, album, song, genre, year FROM songs WHERE user_id = ?"
         cursor = self.conn.execute(query, (user_id,))
-        print("I found")
+        return cursor.fetchall()
+
+    def get_users(self):
+        query = "SELECT name, email, password FROM user_table WHERE user_id > 3"
+        cursor = self.conn.execute(query)
         return cursor.fetchall()
 
     def search_song(self, song):
         query = "SELECT * FROM songs WHERE song = ?"
         cursor = self.conn.execute(query, (song,))
-        print("i found")
         return cursor.fetchone()
 
     def update_song(self, song_id, artist, album, song, genre, year, lyrics):
