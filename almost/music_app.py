@@ -1,6 +1,5 @@
-import sys
-from main_functions.setup_shortcuts import setup_shortcuts
-from main_functions.check_password_strength import check_password_strength
+import re
+from PyQt6 import QtGui
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
 from music_ui import Ui_MainWindow
@@ -26,7 +25,7 @@ class MusicApp(QMainWindow):
         self.db = MusicManagementDB()
         self.current_song_id = None
         self.setup_connections()
-        setup_shortcuts(self)
+        self.setup_shortcuts()
         self.ui.tabWidget.setCurrentIndex(0)
         self.load_table()
 
@@ -86,6 +85,16 @@ class MusicApp(QMainWindow):
 
 
     # UI Setup and Themes
+    def setup_shortcuts(self):
+        shortcut_dark = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Shift+D"), self)
+        shortcut_dark.activated.connect(lambda: self.apply_theme("dark"))
+
+        shortcut_light = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Shift+L"), self)
+        shortcut_light.activated.connect(lambda: self.apply_theme("light"))
+
+        shortcut_default = QtGui.QShortcut(QtGui.QKeySequence('Ctrl+Shift+B'), self)
+        shortcut_default.activated.connect(lambda: self.apply_theme('default'))
+
     def load_last_theme(self):
         theme_name = self.settings.value("theme_name", "default")
         if theme_name == "custom":
@@ -160,10 +169,20 @@ class MusicApp(QMainWindow):
 
     def check_password_strength(self):
         password = self.ui.password_in.text()
-        strength_text, color = check_password_strength(password)
-        self.ui.password_strength.setText(strength_text)
-        self.ui.password_strength.setStyleSheet(f"color: {color};")
+        strength = "Strength: "
 
+        if len(password) < 6:
+            level = "Weak"
+            color = "red"
+        elif re.search(r'[A-Z]', password) and re.search(r'\d', password) and len(password) >= 8:
+            level = "Strong"
+            color = "#66CDAA"
+        else:
+            level = "Medium"
+            color = "orange"
+
+        self.ui.password_strength.setText(f"{strength}{level}")
+        self.ui.password_strength.setStyleSheet(f"color: {color};")
 
 
     # Page Navigation
