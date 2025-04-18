@@ -9,7 +9,8 @@ from PyQt6 import QtGui
 import matplotlib.pyplot as plt
 from collections import Counter
 import re
-from PyQt6.QtCore import QPropertyAnimation, QVariantAnimation, pyqtProperty
+import random
+from PyQt6.QtCore import QVariantAnimation
 from PyQt6.QtGui import QColor
 
 
@@ -383,6 +384,7 @@ class MusicApp(QMainWindow):
 
         cursor = self.db.conn.execute(query, tuple(parameters))
         results = cursor.fetchall()
+        random.shuffle(results)
 
         self.ui.song_table.setRowCount(0)
         for row_data in results:
