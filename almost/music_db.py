@@ -33,6 +33,11 @@ class MusicManagementDB:
         self.conn.execute(song_query)
         self.conn.commit()
 
+    def close(self):
+        """Closes the database connection."""
+        if self.conn:
+            self.conn.close()
+
     def create_user(self, name, email, password, is_admin=0):
         query = "INSERT INTO user_table (name, email, password, is_admin) VALUES (?, ?, ?, ?)"
         try:
@@ -43,15 +48,9 @@ class MusicManagementDB:
             return False
 
     def get_user(self, email, password):
-        # In a production app, you would verify a hashed password.
         query = "SELECT user_id, name, email, is_admin FROM user_table WHERE email = ? AND password = ?"
         cursor = self.conn.execute(query, (email, password))
         return cursor.fetchone()
-
-    # Add methods for song-related operations, similar to your current MusicDB but using the song_table...
-
-    def close(self):
-        self.conn.close()
 
     def add_song(self, user_id, artist, album, song, genre, year, lyrics):
         query = "INSERT INTO songs (user_id, artist, album, song, genre, year, lyrics) VALUES (?, ?, ?, ?, ?, ?, ?)"
