@@ -46,7 +46,7 @@ To run the code, follow these steps:
 
 ![изображение](https://github.com/user-attachments/assets/43d165f4-ebba-4d71-9166-9a41da852e77)
 
-UML
-![bLR9ZjGm4BtdAomk1D63aBYD16ANECm1q8YZvRPhaXAE7Rnqgq7yEsN7dSNTSs0EIQQg_5pBytE_zK6u40VT-9zeHk74mAGMthyBmU4-1lWYhVcElu6zR9gdx4wWOU_6KQCK0QrX7r9mavUmk-XHafFzQHZztR1xv6d13pJA7bd4OivnTyA83WOmuUDxflR5zVKxX82cyyoNZ-904vYC](https://github.com/user-attachments/assets/dfec4ea6-2edd-4a1b-911a-58d846a30172)
+## UML
+![bLPDJzmm4BtdLrXS6jHTXDGR4XKKUk30eKMeHyk9XsI4OmVRsTKMzRztx9XyUBU7SaZ2pFZDrylBtZWlh1ywLRXNrBsmecEr4ixTUc-n6Zmyr4O_uMzWbqNnYJqArEosxnNMmgFHx2u45_48UnmSrkHaxmMZlorxHXuE_48jpPuDcCmnxb5eqK07sjz_Ox9AhXzFu3tgnZ6N7f83jMVr](https://github.com/user-attachments/assets/7d4ffe27-a927-48b6-b88a-72685d657e4d)
 
 
