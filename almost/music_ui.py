@@ -1,7 +1,5 @@
 import sys
-from PyQt6.QtWidgets import (
-    QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout,
-    QHBoxLayout, QGridLayout, QFrame, QMenuBar, QMainWindow, QMessageBox)
+from PyQt6.QtWidgets import (QApplication,  QMainWindow)
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow:
