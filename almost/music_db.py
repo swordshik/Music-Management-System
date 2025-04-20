@@ -73,6 +73,11 @@ class MusicManagementDB:
         query = "INSERT INTO songs (user_id, artist, album, song, genre, year, lyrics) VALUES (?, ?, ?, ?, ?, ?, ?)"
         self.conn.execute(query, (user_id, artist, album, song, genre, year, lyrics))
         self.conn.commit()
+    
+    def get_unique_genres(self):
+        query = "SELECT DISTINCT genre FROM songs WHERE genre IS NOT NULL AND genre != ''"
+        cursor = self.conn.execute(query)
+        return [row[0] for row in cursor.fetchall()]
 
     def get_all_songs(self):
         query = "SELECT artist, album, song, genre, year FROM songs"
@@ -100,11 +105,11 @@ class MusicManagementDB:
         self.conn.commit()
 
     def get_unique_artists(self):
-        query = "SELECT DISTINCT artist FROM songs"
+        query = "SELECT DISTINCT artist FROM songs ORDER BY artist"
         cursor = self.conn.execute(query)
         return [row[0] for row in cursor.fetchall()]
 
     def get_unique_years(self):
-        query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != ''"
+        query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != '' ORDER BY year DESC"
         cursor = self.conn.execute(query)
         return [row[0] for row in cursor.fetchall()]

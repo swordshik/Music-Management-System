@@ -231,7 +231,7 @@ class MusicApp(QMainWindow):
         for artist in self.db.get_unique_artists():
             self.ui.view_artist_filter.addItem(artist)
 
-        for genre in ["Classical", "Pop", "Rock", "Hip-hop", "Jazz", "Electronic", "Other"]:
+        for genre in self.db.get_unique_genres():
             self.ui.view_genre_filter.addItem(genre)
 
         for year in self.db.get_unique_years():
@@ -557,6 +557,16 @@ class MusicApp(QMainWindow):
         if not self.current_song_id:
             QMessageBox.warning(self, "Error", "Please search for a song first.")
             return
+
+        reply = QMessageBox.question(
+            self,
+            "Confirm Update",
+            "Are you sure you want to update this song?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if reply != QMessageBox.StandardButton.Yes:
+            return
+
         artist = self.ui.artist_edit.text().strip()
         album = self.ui.album_edit.text().strip()
         song = self.ui.song_edit.text().strip()
@@ -580,6 +590,7 @@ class MusicApp(QMainWindow):
             self.db.delete_song(self.current_song_id)
             QMessageBox.information(self, "Success", "Song deleted successfully!")
             self.clear_edit_fields()
+        self.current_song_id = None 
 
 
 
