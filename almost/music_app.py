@@ -541,6 +541,7 @@ class MusicApp(QMainWindow):
         song_name = self.ui.search_in.text().strip()
         result = self.db.search_song(song_name)
         if result:
+            self.current_song_id = result[0]  # Set the current song ID (assuming it's the first column in the result)
             self.ui.artist_edit.setText(result[2])
             self.ui.album_edit.setText(result[3])
             self.ui.song_edit.setText(result[4])
@@ -550,6 +551,7 @@ class MusicApp(QMainWindow):
             self.ui.lyrics_2.setPlainText(result[7])
         else:
             QMessageBox.information(self, "Not Found", "Song not found.")
+            self.current_song_id = None  # Clear the current song ID if no song is found
 
     def update_song(self):
         if not self.current_song_id:
