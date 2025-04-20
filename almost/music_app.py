@@ -38,31 +38,23 @@ class MusicApp(QMainWindow):
         self.ui.editB.clicked.connect(self.show_edit_page)
         self.ui.playlistB.clicked.connect(self.show_playlist_page)
         self.ui.profileB.clicked.connect(self.show_profile_page)
-
         self.ui.profile_table.itemSelectionChanged.connect(self.handle_profile_selection)
         self.ui.forgotB.clicked.connect(self.show_reset_password_dialog)
-
-        # Buttons
         self.ui.saveB_1.clicked.connect(self.save_song)
         self.ui.searchB.clicked.connect(self.search_song)
         self.ui.saveB_2.clicked.connect(self.update_song)
         self.ui.deleteB.clicked.connect(self.delete_song)
-
         self.ui.genB.clicked.connect(self.generate_list)
-
         self.ui.edit_photoB.clicked.connect(self.edit_photo)
         self.ui.removeB.clicked.connect(self.remove)
         self.ui.logoutB.clicked.connect(self.log_out)
         self.ui.delete_acB.clicked.connect(self.delete_account)
-
         self.ui.enterB.clicked.connect(self.log)
-
         # menu bar
         self.ui.actionAbout.triggered.connect(self.show_about_dialog)
         self.ui.actionHelp.triggered.connect(self.show_help_dialog)
         self.ui.actionExit.triggered.connect(self.close_app)
-
-        # bg
+        
         self.ui.actionDefault.triggered.connect(lambda: self.apply_theme("default"))
         self.ui.actionGlass.triggered.connect(lambda: self.apply_theme("glass"))
         self.ui.actionSunset.triggered.connect(lambda: self.apply_theme("sunset"))
@@ -71,15 +63,9 @@ class MusicApp(QMainWindow):
         self.ui.actionLight.triggered.connect(lambda: self.apply_theme("light"))
         self.ui.actionCoffee.triggered.connect(lambda: self.apply_theme("coffee"))
         self.ui.actionCustom.triggered.connect(self.set_custom_theme)
-
-
-        # view
         self.ui.view_filter_button.clicked.connect(self.apply_view_filters)
-
         self.ui.viewLyricsB.clicked.connect(self.view_lyrics_popup)
-        #prof
         self.ui.statsB.clicked.connect(self.show_stats_popup)
-
         self.ui.password_in.textChanged.connect(self.check_password_strength)
 
 
@@ -184,6 +170,7 @@ class MusicApp(QMainWindow):
         self.ui.password_strength.setText(f"{strength}{level}")
         self.ui.password_strength.setStyleSheet(f"color: {color};")
 
+        
 
     # Page Navigation
     def show_log_page(self):
