@@ -38,6 +38,7 @@ class MusicManagementDB:
         if self.conn:
             self.conn.close()
 
+    # -------------------- User Table Methods --------------------
     def create_user(self, name, email, password, is_admin=0):
         query = "INSERT INTO user_table (name, email, password, is_admin) VALUES (?, ?, ?, ?)"
         try:
@@ -52,6 +53,22 @@ class MusicManagementDB:
         cursor = self.conn.execute(query, (email, password))
         return cursor.fetchone()
 
+    def get_users(self):
+        query = "SELECT name, email, password FROM user_table WHERE user_id > 3"
+        cursor = self.conn.execute(query)
+        return cursor.fetchall()
+
+    def count(self, user_id):
+        if user_id < 0:
+            query = "SELECT * FROM user_table WHERE user_id = ?"
+            cursor = self.conn.execute(query, (user_id,))
+            return len(cursor.fetchall()) - 3
+        else:
+            query = "SELECT * FROM songs WHERE user_id = ?"
+            cursor = self.conn.execute(query, (user_id,))
+            return len(cursor.fetchall())
+
+    # -------------------- Songs Table Methods --------------------
     def add_song(self, user_id, artist, album, song, genre, year, lyrics):
         query = "INSERT INTO songs (user_id, artist, album, song, genre, year, lyrics) VALUES (?, ?, ?, ?, ?, ?, ?)"
         self.conn.execute(query, (user_id, artist, album, song, genre, year, lyrics))
@@ -65,11 +82,6 @@ class MusicManagementDB:
     def get_user_songs(self, user_id):
         query = "SELECT artist, album, song, genre, year FROM songs WHERE user_id = ?"
         cursor = self.conn.execute(query, (user_id,))
-        return cursor.fetchall()
-
-    def get_users(self):
-        query = "SELECT name, email, password FROM user_table WHERE user_id > 3"
-        cursor = self.conn.execute(query)
         return cursor.fetchall()
 
     def search_song(self, song):
@@ -96,14 +108,3 @@ class MusicManagementDB:
         query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != ''"
         cursor = self.conn.execute(query)
         return [row[0] for row in cursor.fetchall()]
-
-    def count(self, user_id):
-        if user_id<0:
-            query = "SELECT * FROM user_table WHERE user_id = ?"
-            cursor = self.conn.execute(query, (user_id,))
-            return len(cursor.fetchall()) - 3
-
-        else:
-            query = "SELECT * FROM songs WHERE user_id = ?"
-            cursor = self.conn.execute(query, (user_id,))
-            return len(cursor.fetchall())
