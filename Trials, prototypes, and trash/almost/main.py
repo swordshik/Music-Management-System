@@ -171,7 +171,7 @@ class MusicApp(QMainWindow):
 
         if theme_name in themes:
             self.set_label_colors(themes[theme_name])
-            self.settings.setValue("theme_name", theme_name)  # ✅ save selected theme
+            self.settings.setValue("theme_name", theme_name)
 
     def set_label_colors(self, color_list):
         if len(color_list) != 3:
