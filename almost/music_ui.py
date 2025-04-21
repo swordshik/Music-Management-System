@@ -1,11 +1,10 @@
 import sys
-from PyQt6.QtWidgets import (
-    QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout,
-    QHBoxLayout, QGridLayout, QFrame, QMenuBar, QMainWindow, QMessageBox)
+from PyQt6.QtWidgets import (QApplication,  QMainWindow)
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-class Ui_MainWindow(object):
+class Ui_MainWindow:
     def setupUi(self, MainWindow):
+        # Setup UI components
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(735, 565)
         MainWindow.setMinimumSize(QtCore.QSize(735, 565))
