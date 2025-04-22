@@ -204,7 +204,7 @@ class MusicApp(QMainWindow):
         if user_status == "User":
             self.user_table()
             num_songs = self.db.count(self.current_user["id"])
-            self.ui.num_label.setText(f"No. of songs added: {num_songs}")
+            self.ui.num_label.setText(f"Songs added: {num_songs}")
         else:
             self.admin_table()
             num_users = len(self.db.get_users())
