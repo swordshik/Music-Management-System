@@ -45,7 +45,7 @@ class MusicApp(QMainWindow):
         self.ui.saveB_2.clicked.connect(self.update_song)
         self.ui.deleteB.clicked.connect(self.delete_song)
         self.ui.genB.clicked.connect(self.generate_list)
-        self.ui.edit_photoB.clicked.connect(self.edit_photo)
+        self.ui.edit_photoB.clicked.connect(self.show_trash_popup)  # NEW
         self.ui.removeB.clicked.connect(self.remove)
         self.ui.logoutB.clicked.connect(self.log_out)
         self.ui.delete_acB.clicked.connect(self.delete_account)
@@ -291,8 +291,47 @@ class MusicApp(QMainWindow):
         else:
             self.selected_song_name = None
 
-    def edit_photo(self):
-        pass
+    def show_trash_popup(self):
+        trash_songs = self.db.get_all_trashed_songs()
+
+        if not trash_songs:
+            QMessageBox.information(self, "Trash Empty", "No songs in trash.")
+            return
+
+        popup = QtWidgets.QDialog(self)
+        popup.setWindowTitle("Trash Bin")
+        popup.setMinimumSize(700, 400)
+
+        layout = QtWidgets.QVBoxLayout()
+
+        table = QtWidgets.QTableWidget()
+        table.setColumnCount(7)
+        table.setHorizontalHeaderLabels(["Artist", "Album", "Song", "Genre", "Year", "Lyrics", "Deleted At"])
+        table.setRowCount(0)
+
+        for row_data in trash_songs:
+            row = table.rowCount()
+            table.insertRow(row)
+            for col, data in enumerate(row_data[2:]):  # skip song_id and user_id
+                table.setItem(row, col, QTableWidgetItem(str(data)))
+
+        clear_btn = QtWidgets.QPushButton("Clear All Trash")
+        clear_btn.clicked.connect(lambda: self.clear_all_trash(popup))
+
+        layout.addWidget(table)
+        layout.addWidget(clear_btn)
+        popup.setLayout(layout)
+        popup.exec()
+
+    def clear_all_trash(self, popup):
+        confirm = QMessageBox.question(
+            self, "Confirm", "Are you sure you want to permanently delete all trashed songs?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if confirm == QMessageBox.StandardButton.Yes:
+            self.db.clear_trash()
+            QMessageBox.information(self, "Cleared", "Trash has been emptied.")
+            popup.accept()
 
     def show_stats_popup(self):
         user_status = self.current_user["is_admin"]
@@ -343,7 +382,12 @@ class MusicApp(QMainWindow):
         if reply == QMessageBox.StandardButton.Yes:
             song = self.db.search_song(self.selected_song_name)
             if song and song[1] == self.current_user["id"]:  # Make sure it belongs to the user
-                self.db.delete_song(song[0])  # song_id
+                success = self.db.move_song_to_trash(song[0])
+                if success:
+                    QMessageBox.information(self, "Moved to Trash", "Song moved to Trash successfully.")
+                else:
+                    QMessageBox.warning(self, "Error", "Could not move song to Trash.")
+
                 QMessageBox.information(self, "Remove", "Successfully Removed.")
                 self.user_table()  # Refresh the table
                 self.selected_song_name = None

@@ -5,7 +5,6 @@ class MusicManagementDB:
         self.db_name = db_name
         self.conn = sqlite3.connect(self.db_name)
 
-
     def close(self):
         """Closes the database connection."""
         if self.conn:
@@ -40,11 +39,6 @@ class MusicManagementDB:
             query = "SELECT * FROM songs WHERE user_id = ?"
             cursor = self.conn.execute(query, (user_id,))
             return len(cursor.fetchall())
-    
-    def delete_user(self, user_id):
-        query = "DELETE FROM user_table WHERE user_id=?"
-        self.conn.execute(query, (user_id,))
-        self.conn.commit()
 
     # -------------------- Songs Table Methods --------------------
     def add_song(self, user_id, artist, album, song, genre, year, lyrics):
@@ -77,10 +71,20 @@ class MusicManagementDB:
         self.conn.execute(query, (artist, album, song, genre, year, lyrics, song_id))
         self.conn.commit()
 
-    def delete_song(self, song_id):
-        query = "DELETE FROM songs WHERE song_id=?"
-        self.conn.execute(query, (song_id,))
-        self.conn.commit()
+    def move_song_to_trash(self, song_id):
+        # Get song data before deleting
+        song = self.conn.execute("SELECT * FROM songs WHERE song_id = ?", (song_id,)).fetchone()
+        if song:
+            # Insert into trash table
+            self.conn.execute("""
+                INSERT INTO trash (song_id, user_id, artist, album, song, genre, year, lyrics)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, song)
+            # Then delete from songs
+            self.conn.execute("DELETE FROM songs WHERE song_id = ?", (song_id,))
+            self.conn.commit()
+            return True
+        return False
 
     def get_unique_artists(self):
         query = "SELECT DISTINCT artist FROM songs ORDER BY artist"
@@ -91,3 +95,12 @@ class MusicManagementDB:
         query = "SELECT DISTINCT year FROM songs WHERE year IS NOT NULL AND year != '' ORDER BY year DESC"
         cursor = self.conn.execute(query)
         return [row[0] for row in cursor.fetchall()]
+
+    def get_all_trashed_songs(self):
+        query = "SELECT * FROM trash ORDER BY deleted_at DESC"
+        cursor = self.conn.execute(query)
+        return cursor.fetchall()
+
+    def clear_trash(self):
+        self.conn.execute("DELETE FROM trash")
+        self.conn.commit()

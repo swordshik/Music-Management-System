@@ -1135,7 +1135,7 @@ class Ui_MainWindow:
         self.logoutB.setText(_translate("MainWindow", "Log Out"))
         self.delete_acB.setText(_translate("MainWindow", "Delete Account"))
         self.photo_label.setText(_translate("MainWindow", "Photo"))
-        self.edit_photoB.setText(_translate("MainWindow", "Edit Photo"))
+        self.edit_photoB.setText(_translate("MainWindow", "View Trash"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.profile_page), _translate("MainWindow", "Page"))
         self.signB.setText(_translate("MainWindow", "Log In"))
         self.playlistB.setText(_translate("MainWindow", " Playlist"))
