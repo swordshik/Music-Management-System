@@ -40,6 +40,11 @@ class MusicManagementDB:
             query = "SELECT * FROM songs WHERE user_id = ?"
             cursor = self.conn.execute(query, (user_id,))
             return len(cursor.fetchall())
+    
+    def delete_user(self, user_id):
+        query = "DELETE FROM user_table WHERE user_id=?"
+        self.conn.execute(query, (user_id,))
+        self.conn.commit()
 
     # -------------------- Songs Table Methods --------------------
     def add_song(self, user_id, artist, album, song, genre, year, lyrics):
