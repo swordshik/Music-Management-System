@@ -53,3 +53,6 @@ To run the code, follow these steps:
 ![bLPDJzmm4BtdLrXS6jHTXDGR4XKKUk30eKMeHyk9XsI4OmVRsTKMzRztx9XyUBU7SaZ2pFZDrylBtZWlh1ywLRXNrBsmecEr4ixTUc-n6Zmyr4O_uMzWbqNnYJqArEosxnNMmgFHx2u45_48UnmSrkHaxmMZlorxHXuE_48jpPuDcCmnxb5eqK07sjz_Ox9AhXzFu3tgnZ6N7f83jMVr](https://github.com/user-attachments/assets/7d4ffe27-a927-48b6-b88a-72685d657e4d)
 
 
+# Document of our weekly meetings:
+https://1drv.ms/w/c/e52124a96812b60c/ERpCJvg5PIRDmDkex9uxp9IBQjbUn4Xyt8hN7ctGf3-GYg?e=5DMU3A
+
