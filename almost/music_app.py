@@ -523,7 +523,6 @@ class MusicApp(QMainWindow):
         genre = self.ui.box_add.currentText()
         year = self.ui.year_in.text().strip()
         lyrics = self.ui.lyrics_1.toPlainText().strip()
-
         self.db.add_song(self.current_user["id"], artist, album, song, genre, year, lyrics)
         QMessageBox.information(self, "Success", "Song added successfully!")
         self.clear_add_fields()
