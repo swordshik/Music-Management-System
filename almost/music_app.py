@@ -336,7 +336,7 @@ class MusicApp(QMainWindow):
         reply = QMessageBox.question(
             self,
             "Confirm Deletion",
-            f"Are you sure you want to delete the song '{self.selected_song_name}'?",
+            f"Are you sure you want to remove '{self.selected_song_name}'?",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
 
@@ -344,7 +344,7 @@ class MusicApp(QMainWindow):
             song = self.db.search_song(self.selected_song_name)
             if song and song[1] == self.current_user["id"]:  # Make sure it belongs to the user
                 self.db.delete_song(song[0])  # song_id
-                QMessageBox.information(self, "Deleted", "Song deleted successfully.")
+                QMessageBox.information(self, "Remove", "Successfully Removed.")
                 self.user_table()  # Refresh the table
                 self.selected_song_name = None
             else:
